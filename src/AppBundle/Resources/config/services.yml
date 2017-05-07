@@ -8,20 +8,6 @@ services:
         tags:
             - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\SubmitType }
 
-    app.registration.professional.form.type:
-        class: AppBundle\Form\Type\Registration\ProfessionalType
-        calls:
-          - [setContainer, ['@service_container']]
-        tags:
-          - { name: form.type, alias: 'container_aware' }
-
-    app.registration.professional.stepthree.form.type:
-        class: AppBundle\Form\Type\Registration\Professional\StepThreeType
-        calls:
-            - [setContainer, ['@service_container']]
-        tags:
-            - { name: form.type, alias: 'container_aware' }
-
     app.mailer:
             class: AppBundle\Service\Mailer
             arguments:

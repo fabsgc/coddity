@@ -2,11 +2,9 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Util\Now;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
-use AppBundle\Entity\Location;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -20,7 +18,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\HasLifecycleCallbacks
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="type", type="string")
- * @ORM\DiscriminatorMap({"intern" = "User", "professional" = "Professional", "customer" = "Customer"})
  * @UniqueEntity("email")
  */
 class User extends BaseUser
@@ -33,22 +30,6 @@ class User extends BaseUser
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-
-
-    /**
-     * @var string
-     * @ORM\Column(name="title", type="string")
-     * @Assert\Choice({"M", "MME", "Maitre"})
-     */
-    private $title;
-
-
-    /**
-     * @var \DateTime
-     * @ORM\Column(name="birthDate", type="date", nullable=true)
-     * @Assert\Date
-     */
-    private $birthDate;
 
     /**
      * @var string
@@ -84,19 +65,6 @@ class User extends BaseUser
     private $pictureUpload;
 
     /**
-     * @var string
-     * @ORM\Column(length=12)
-     * @Assert\Regex("/^\d{10}$/", message="profile.phone_number.incorrect")
-     */
-    private $phoneNumber;
-
-    /**
-     * @var Location
-     * @ORM\Embedded(class="Location")
-     */
-    private $location;
-
-    /**
      * @var \DateTime
      *
      * @ORM\Column(type="datetime")
@@ -109,19 +77,6 @@ class User extends BaseUser
      */
     private $token;
 
-	/**
-	 * @var ArrayCollection
-	 * @ORM\OneToMany(targetEntity="Professional", mappedBy="accountManager")
-	 */
-	protected $ownedProfessionals;
-
-    public function __construct()
-    {
-        parent::__construct();
-        $this->registrationDate = Now::now();
-        $this->token = md5(uniqid(rand(), true));
-    }
-
     /**
      * Get id
      *
@@ -132,20 +87,10 @@ class User extends BaseUser
         return $this->id;
     }
 
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
     public function setTitle($title)
     {
         $this->title = $title;
         return $this;
-    }
-
-    public function getBirthDate()
-    {
-        return $this->birthDate;
     }
 
     public function setBirthDate($birthDate)
@@ -227,42 +172,6 @@ class User extends BaseUser
     }
 
     /**
-     * @return string
-     */
-    public function getPhoneNumber()
-    {
-        return $this->phoneNumber;
-    }
-
-    /**
-     * @param string $phoneNumber
-     * @return User
-     */
-    public function setPhoneNumber($phoneNumber)
-    {
-        $this->phoneNumber = $phoneNumber;
-        return $this;
-    }
-
-    /**
-     * @return \AppBundle\Entity\Location
-     */
-    public function getLocation()
-    {
-        return $this->location;
-    }
-
-    /**
-     * @param \AppBundle\Entity\Location $location
-     * @return User
-     */
-    public function setLocation($location)
-    {
-        $this->location = $location;
-        return $this;
-    }
-
-    /**
      * @return \DateTime
      */
     public function getRegistrationDate()
@@ -279,22 +188,6 @@ class User extends BaseUser
         $this->registrationDate = $registrationDate;
         return $this;
     }
-
-
-    /**
-     * @return string
-     */
-    public function getType()
-    {
-        return 'intern';
-    }
-
-	/**
-	 * @return ArrayCollection
-	 */
-	public function getOwnedProfessionals() {
-		return $this->ownedProfessionals;
-	}
 
     /**
      * @ORM\PrePersist
