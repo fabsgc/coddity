@@ -1,0 +1,36 @@
+{% trans_default_domain('App') %}
+
+{% extends('AppBundle::layout.html.twig') %}
+
+{% block title %}Modifier mon profil{% endblock %}
+
+{% block content %}
+    <div class="background-image background-bill"></div>
+    <div class="container">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    {% include('AppBundle::flash-message.html.twig') %}
+                </div>
+            </div>
+            <h1 class="text-center">Modifier mon profil</h1>
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 edit-profile">
+                    {% include('UserBundle::Profile/tab.html.twig') %}
+                    <div class="box box-no-border-radius-top center-block">
+                        <div class="box-body">
+                            {{ form_start(form) }}
+                            {{ form_errors(form) }}
+                            {{ form_row(form.meetingTimeLimitMin) }}
+                            {{ form_row(form.meetingTimeLimitMax) }}
+                            {{ form_row(form.meetingDuration) }}
+                            {{ form_row(form.meetingTimeLimitForCancellation) }}
+                            {{ form_row(form.timeAfterMeeting) }}
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

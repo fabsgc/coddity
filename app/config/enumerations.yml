@@ -1,0 +1,22 @@
+# This file contains static enumerations
+parameters:
+    honorary_types:
+      HOR: Honoraires
+      DOS: Dossier
+    roles:
+      ROLE_SUPER_ADMIN: Super administrateur
+      ROLE_SALES_MANAGER: Directeur commercial
+      ROLE_FINANCIAL_OFFICER: Responsable financier
+      ROLE_ANALYST: Analyste
+      ROLE_TECHNICAL_ADMIN: Administrateur technique
+      ROLE_PLATFORM_ADMIN: Administrateur plateforme
+      ROLE_ACCOUNT_MANAGER: Chargé de clientèle
+      ROLE_OFFER_MANAGER: Gestionnaire d'offres
+    payment_providers:
+      PAYPAL: PayPal
+      CB: Carte bancaire
+    prospect_reminder_types:
+      PHONE: Appel téléphonique
+      EMAIL: Email envoyé
+      POSTMAIL: Courrier postal envoyé
+      OTHER: Autre

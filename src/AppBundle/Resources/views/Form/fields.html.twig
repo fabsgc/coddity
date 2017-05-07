@@ -1,0 +1,137 @@
+{% extends('bootstrap_3_layout.html.twig') %}
+
+{% block form_errors -%}
+    {% if errors|length > 0 -%}
+        {% if form.parent %}<span class="help-block">{% else %}<div class="alert alert-danger">{% endif %}
+        <ul class="list-unstyled">
+        {%- for error in errors -%}
+            <li><span class="fa fa-exclamation-circle"></span> {{ error.message }}</li>
+        {%- endfor -%}
+    </ul>
+        {% if form.parent %}</span>{% else %}</div>{% endif %}
+    {%- endif %}
+{%- endblock form_errors %}
+
+{% block money_widget -%}
+    <div class="input-group">
+        {% set append = 'true' %}
+        {% if not append %}
+            <span class="input-group-addon">{{ money_pattern|replace({ '{{ widget }}':''}) }}</span>
+        {% endif %}
+        {{- block('form_widget_simple') -}}
+        {% if append %}
+            <span class="input-group-addon">{{ money_pattern|replace({ '{{ widget }}':''}) }}</span>
+        {% endif %}
+    </div>
+{%- endblock money_widget %}
+
+{% block form_widget_simple -%}
+    {%- set type = type|default('text') -%}
+    {% if type is not defined or type not in ['file', 'hidden'] %}
+        {%- set attr = attr|merge({class: (attr.class|default('') ~ ' form-control')|trim}) -%}
+        {% if attr.placeholder is not defined %}
+            {%- set attr = attr|merge({ placeholder: label }) -%}
+        {% endif %}
+    {% endif %}
+    {% if addon is defined %}
+        <div class="input-group">
+            {% if addon_position == 'left' %}
+                <span class="input-group-addon">
+                    {% if addon == 'text' %}
+                        {{ translation_domain is same as(false) ? addon_content : addon_content|trans({}, translation_domain) }}
+                    {% else %}
+                        <i class="{{ addon_content }}"></i>
+                    {% endif %}
+                </span>
+            {% endif %}
+            <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+            {% if addon_position != 'left' %}
+                <span class="input-group-addon">
+                    {% if addon == 'text' %}
+                        {{ translation_domain is same as(false) ? addon_content : addon_content|trans({}, translation_domain) }}
+                    {% else %}
+                        <i class="{{ addon_content }}"></i>
+                    {% endif %}
+                </span>
+            {% endif %}
+        </div>
+    {% else %}
+        <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+    {% endif %}
+{%- endblock form_widget_simple %}
+
+{% block checkbox_row %}
+    <div class="form-check">
+        {% set type = type|default('checkbox') %}
+        {% if checked %}
+            <input type="checkbox" {{ block('widget_attributes') }} checked="checked"/>
+        {% else %}
+            <input type="checkbox" {{ block('widget_attributes') }}/>
+        {% endif %}
+        {{ block('form_label') }}
+    </div>
+{% endblock %}
+
+{%- block form_label -%}
+    {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' control-label')|trim}) -%}
+    {% if label is not same as(false) -%}
+        {% if not compound -%}
+            {% set label_attr = label_attr|merge({'for': id}) %}
+        {%- endif -%}
+        {% if required -%}
+            {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
+        {%- endif -%}
+        {%- if label == 'nbsp' -%}
+            <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>&nbsp;</label>
+        {%- else -%}
+            {% if label is empty -%}
+                {%- if label_format is not empty -%}
+                    {% set label = label_format|replace({
+                        '%name%': name,
+                        '%id%': id,
+                    }) %}
+                {%- else -%}
+                    {% set label = name|humanize %}
+                {%- endif -%}
+            {%- endif -%}
+            <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}</label>
+        {%- endif -%}
+    {%- endif -%}
+{%- endblock form_label -%}
+
+{%- block form_rows -%}
+    {% for child in form %}
+        {% for children in child %}
+            <div class="input-group">
+                {{ form_widget(children) }}
+                <span class="input-group-addon"><a href="#" id="#delete"><i class="fa fa-trash"></i></a></span>
+            </div>
+        {% endfor %}
+    {% endfor %}
+{%- endblock form_rows -%}
+
+{%- block button_widget -%}
+    {%- if label is empty -%}
+        {%- if label_format is not empty -%}
+            {% set label = label_format|replace({
+            '%name%': name,
+            '%id%': id,
+            }) %}
+        {%- else -%}
+            {% set label = name|humanize %}
+        {%- endif -%}
+    {%- endif -%}
+    {% if icon is defined %}
+        <button type="{{ type|default('button') }}" {{ block('button_attributes') }}><i class="{{ icon }}"></i> {{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}</button>
+    {% else %}
+        <button type="{{ type|default('button') }}" {{ block('button_attributes') }}>{{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}</button>
+    {% endif %}
+{%- endblock button_widget -%}
+
+{% block datepicker_widget %}
+    <datepicker value="{{ value }}" name="{{ full_name }}" format="DD/MM/YYYY"></datepicker>
+{% endblock %}
+
+{% block timepicker_widget %}
+    <timepicker value="{{ value }}" name="{{ full_name }}" format="HH:mm"></timepicker>
+{% endblock %}

@@ -1,0 +1,330 @@
+@import "compass/css3/font-face";
+@import "compass/css3/images";
+@import "compass/css3/filter";
+@import "compass/css3/border-radius";
+@import "compass/css3/transition";
+@import "compass/css3/transform";
+@import "compass/css3/box-shadow";
+
+/* ################### CONFIGURATION ################### */
+
+/* Media Queries */
+$mobile-width: 767px;
+$desktop-width: 768px;
+
+/* Colors */
+
+$dark-red: #471609;
+$light-red: #c92421;
+$red: #ab1919;
+$hover-red: #921919;
+$grey: #dad8d8;
+$light-grey: #efebeb;
+$small-dark-grey: #919499;
+$dark-grey: #7b7c7c;
+
+
+/* Fonts */
+
+@include font-face("Ebrima", font-files("Ebrima.ttf"));
+@include font-face("Open Sans", font-files("OpenSans-Regular.ttf"));
+
+@include font-face("Bebas Neue", font-files("BebasNeue.otf"));
+@include font-face("Century Gothic", font-files("CenturyGothicRegular.ttf"));
+
+/* General */
+
+body {
+  font-family: "Ebrima", sans-serif;
+  font-size: 15px;
+}
+
+body.background-red{
+  background-color: rgba(171, 25, 25, 1.5);
+}
+
+body.background-grey{
+  background-color: $light-grey;
+}
+
+body, html{
+  height: 100%;
+}
+
+#wrapper{
+  min-height:100%;
+  position:relative;
+}
+
+a {
+  color: $red;
+  &:hover,
+  &:focus {
+    color: $red;
+  }
+}
+
+a.link-white{
+  color: white!important;
+}
+
+h1, h2, h3, h4, h5, h6{
+  font-family: "Bebas Neue", sans-serif;
+  color: $red!important;
+}
+
+.font-bebas-neue{
+  font-family: "Bebas Neue", sans-serif!important;
+}
+
+.font-century-gothic{
+  font-family: "Century Gothic", sans-serif!important;
+}
+
+@media (max-width: $mobile-width) {
+  .container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+/* ################### BACKGROUND-IMAGE ################### */
+
+.background-image {
+  position: fixed;
+  display: block;
+  top: 0;
+  margin: 0;
+  padding: 0;
+  z-index: -9999;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  @include filter(blur(9px) opacity(0.5));
+}
+
+/* ################### BUTTONS ################### */
+
+.btn-red {
+  background-color: $red;
+  color: #ffffff;
+  &:hover,
+  &:focus {
+    background-color: $red;
+    color: $light-grey;
+  }
+}
+
+/* ################### FORMS ################### */
+
+/* input/select/textarea */
+
+.form-control{
+  padding: 10px 12px;
+  font-size: 14px;
+  height: 41px!important;
+  line-height: 34px!important;
+  color: $dark-grey!important;
+  background-color: $light-grey!important;
+  background-image: none;
+  border: none!important;
+  border-radius: 2px!important;
+  -webkit-box-shadow: none!important;
+  box-shadow: none!important;
+  -webkit-transition: none!important;
+  -o-transition: none!important;
+  transition: none!important;
+}
+
+textarea.form-control {
+  padding: 6px 12px!important;
+  height: auto!important;
+}
+
+/* buttons */
+
+.btn {
+  padding: 8px 14px;
+  border: none!important;
+  border-radius: 4px;
+  background-color: $red;
+  color: white!important;
+  -webkit-transition-duration:0.15s;
+  -moz-transition-duration:0.15s;
+  -o-transition-duration:0.15s;
+  transition-duration:0.15s;
+  font-size: 20px;
+
+  &:hover,
+  &:focus {
+    background-color: $hover-red;
+  }
+}
+
+/* Checkbox */
+
+.form-check {
+  [type="checkbox"]:not(:checked),
+  [type="checkbox"]:checked {
+    position: absolute;
+    left: -9999px;
+  }
+
+  [type="checkbox"]:not(:checked) + label,
+  [type="checkbox"]:checked + label {
+    position: relative;
+    padding-left: 25px;
+    cursor: pointer;
+  }
+
+  [type="checkbox"]:not(:checked) + label:before,
+  [type="checkbox"]:checked + label:before {
+    content: '';
+    position: absolute;
+    left:0; top: 2px;
+    width: 20px; height: 20px;
+    border: 1px solid $light-grey;
+    background: $red;
+    border-radius: 2px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3)
+  }
+
+  [type="checkbox"]:not(:checked) + label:after,
+  [type="checkbox"]:checked + label:after {
+    content: '✔';
+    position: absolute;
+    top: 0; left: 3px;
+    font-size: 17px;
+    color: #ffffff;
+    transition: all .2s;
+  }
+
+  [type="checkbox"]:not(:checked) + label:after {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  [type="checkbox"]:checked + label:after {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.input-group-addon{
+  border: none!important;
+  background-color: $light-grey!important;
+}
+
+/* Switch */
+
+.form-switch {
+  $switch-height: 24px;
+  $switch-width: 50px;
+  $switch-button-size: 18px;
+  .switch {
+    display: inline-block;
+    position: relative;
+    width: $switch-width;
+    height: $switch-height;
+
+    input {
+      display: none;
+    }
+  }
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: $grey;
+    @include transition-duration(0.4s);
+
+    &:before {
+      position: absolute;
+      content: "";
+      height: $switch-button-size;
+      width: $switch-button-size;
+      left: 4.2px;
+      bottom: 3px;
+      background-color: #ffffff;
+      @include transition-duration(0.4s)
+    }
+  }
+  input:checked + .slider {
+    background-color: $red;
+  }
+  input:focus + .slider {
+    box-shadow: 0 0 1px $red;
+  }
+  input:checked + .slider:before {
+    @include translateX(24px);
+  }
+
+  .round {
+    border-radius: $switch-height;
+
+    &:before {
+      border-radius: 50%;
+    }
+  }
+
+  .form-switch-label {
+    position: relative;
+    bottom: 11.5px;
+  }
+}
+
+@media (max-width: $mobile-width) {
+  .desktop-mode{
+    display: none;
+  }
+}
+
+@media (min-width: $desktop-width) {
+  .mobile-mode {
+    display: none;
+  }
+}
+
+.clear{
+  clear: both;
+}
+
+.panel-danger > .panel-heading {
+  color: white!important;
+  background-color: $red!important;
+  border: none!important;
+  border-radius: 3px;
+}
+
+.panel-heading{
+  border-bottom-left-radius: 0!important;
+  border-bottom-right-radius: 0!important;
+}
+
+.table-responsive{
+  width: 100%;
+}
+
+/* Imports */
+
+@import "box";
+@import "navbar";
+@import "home";
+@import "login";
+@import "profile";
+@import "settings";
+@import "sidebar";
+@import "search";
+@import "footer";
+@import "background";
+@import "presentation";
+@import "qa";
+@import "register";
+@import "mark";
+@import "meeting";
+@import "edit_profile";
+@import "availability";
+@import "subscriptions";

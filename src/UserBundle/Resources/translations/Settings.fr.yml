@@ -1,0 +1,35 @@
+settings:
+    email: 'Adresse e-mail'
+    birthDate: 'Date de naissance'
+    password: 'Mot de passe'
+    meetingTimeLimitMin: 'Temps minimum avant planification (?)'
+    meetingTimeLimitMax: 'Temps maximum avant planification (?)'
+    meetingDuration: 'Durée d''un rendez vous'
+    meetingTimeLimitForCancellation: 'Durée minimum avant annulation'
+    timeAfterMeeting: 'Durée entre chaque rendez-vous'
+    paperBill: 'Facturation papier (2€ par facture)'
+    markVisibility: 'Visibilité de la note'
+    title: Paramètres
+    terminate: Résilier
+    payment_method:
+        iban: IBAN (Identifiant international de compte)
+        bic: BIC (Identifiant international de l'établissement)
+        user_location: Utiliser votre adresse actuelle,
+        name: Nom
+        creditCardNumber: N° de la carte
+        creditCardCryptogram: Cryptogramme visuel
+        creditCardExpirationDate: Date d'expiration
+    honorary:
+        DOS: Dossier
+        HOR: Honoraires
+        title: Type d'honoraire
+    config: Préfèrences
+    title:
+      M: M.
+      MME: Mme.
+      Maitre: Maître
+      label: Civilité
+
+form:
+    save: 'Enregister'
+

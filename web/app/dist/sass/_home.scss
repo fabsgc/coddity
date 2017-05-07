@@ -1,0 +1,65 @@
+h1.description {
+  color: $red;
+  font-weight: bold;
+  font-size: 45px;
+  margin-top: 25px;
+  margin-bottom: 0;
+}
+
+h3.sub-description {
+  color: $red;
+  font-size: 25px;
+  margin-top: 0;
+}
+
+.home {
+  text-align: center;
+
+  i {
+    font-size: 55px;
+  }
+
+  .title {
+    max-width: 240px;
+    display: block;
+    color: #000!important;
+    text-align: center;
+    font-size: 22px !important;
+    margin: 15px auto 40px auto;
+  }
+}
+
+@media (min-width: $desktop-width) {
+  .home{
+    margin-top: 40px;
+  }
+}
+
+@media (max-width: $mobile-width) {
+  .home{
+    margin-top: 20px;
+  }
+}
+
+#how_it_works {
+  min-height: 500px;
+  background-color: $red;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  border-radius: 10px!important;
+  height: 500px;
+
+  .col-md-4 {
+    margin-top: 25px;
+  }
+
+  img {
+    margin-left: 50px;
+    border-radius: 50%!important;
+    width: 150px!important;
+  }
+
+  span {
+    display: block!important;
+  }
+}

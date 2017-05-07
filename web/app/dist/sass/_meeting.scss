@@ -1,0 +1,30 @@
+.meeting-block {
+  .meeting-left{
+    padding: 20px;
+    border-right: 2px solid $red;
+  }
+
+  .meeting-right {
+    padding: 20px 25px 5px 25px;
+  }
+
+  @media (max-width: 991px) {
+    .meeting-left{
+      border-right: none;
+    }
+  }
+
+  .meeting-left{
+    .meeting-picture{
+      img{
+        max-width: 150px;
+        border-radius: 100px;
+      }
+    }
+
+    .meeting-name{
+      margin-top: 10px;
+      font-size: 18px;
+    }
+  }
+}

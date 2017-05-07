@@ -1,0 +1,104 @@
+/* ################### PAGE PRESENTATION-SERVICE ################### */
+
+.presentation{
+  margin-bottom: 35px;
+}
+
+.service{
+  float: right;
+
+  h1{
+    text-transform: uppercase;
+    color: white!important;
+  }
+
+  p{
+    font-size: 16px;
+    color: white!important;
+  }
+
+  ul{
+    color: white!important;
+  }
+
+  .offers-list {
+    .offer {
+      width: 160px;
+      height: 140px;
+      background-color: $red;
+      border: 1px solid $light-red;
+      border-radius: 5px;
+      padding: 5px;
+      color: white;
+
+      .duration{
+        text-align: center;
+
+        .title{
+          font-size: 18px;
+        }
+
+        .engagement{
+          font-size: 14px;
+        }
+      }
+
+      .price{
+        text-align: center;
+        margin-top: 15px;
+
+        .number{
+          font-size: 30px;
+        }
+
+        .ht{
+          font-size: 20px;
+        }
+      }
+    }
+  }
+
+  @media (min-width: $desktop-width) {
+    .offers-list {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .offer {
+      margin-left: 10px;
+    }
+  }
+
+  @media (max-width: $mobile-width) {
+    .offers-list {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+    }
+
+    .offer{
+      margin: 10px 0 0 10px;
+    }
+  }
+}
+
+.presentation,
+.avis{
+  h1{
+    text-transform: uppercase;
+    color: white!important;
+  }
+
+  p{
+    text-align: justify;
+    color: white!important;
+  }
+
+  ul{
+    color: white!important;
+
+    li{
+      color: white!important;
+    }
+  }
+}

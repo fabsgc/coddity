@@ -1,0 +1,44 @@
+.box {
+  margin-bottom: 20px;
+  background-color: #ffffff;
+  @include border-radius(4px);
+
+  .box-heading {
+    padding: 10px 15px;
+    text-align: left;
+    color: $red;
+    font-size: 25px;
+
+    .box-title {
+      display: inline-block;
+      font-weight: bold;
+    }
+
+    .btn-group {
+      a {
+        padding: 4px 12px;
+        background-color: $red;
+        color: #ffffff;
+        border-radius: 3px;
+        &:hover,
+        &:focus,
+        .active {
+          background-color: $red;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+
+  .box-heading-grey{
+    background-color: $light-grey;
+  }
+
+  .box-body {
+    padding: 15px;
+  }
+
+  .box-footer {
+    padding: 15px;
+  }
+}

@@ -1,0 +1,224 @@
+@media (min-width: $desktop-width) {
+  .navbar-pro {
+    position: fixed;
+    width: 100%;
+  }
+
+  #body{
+    padding-top: 120px;
+  }
+}
+
+.navbar-pro {
+  border-color: white;
+  border-bottom: 3px solid white;
+  height:75px;
+  //background: transparent!important;
+  background: rgba(171,25,25,0.4);
+  width: 100%;
+
+  .navbar-brand {
+    color: #ffffff;
+    padding: 15px!important;
+    img {
+      height: 45px;
+    }
+  }
+
+  .navbar-right{
+    margin-right: 0;
+  }
+
+  .navbar-nav {
+    margin: 0!important;
+
+    li {
+      a {
+        color: #ffffff;
+        padding-top:0!important;
+        padding-bottom:0!important;
+        line-height: 72px;
+        -webkit-transition-duration:0.15s;
+        -moz-transition-duration:0.15s;
+        -o-transition-duration:0.15s;
+        transition-duration:0.15s;
+        font-size: 20px;
+
+        &:hover,
+        &:focus {
+          color: #ffffff;
+        }
+      }
+
+      a:hover,
+      a.focus {
+        background-color: $red;
+      }
+    }
+
+    @media (max-width: $mobile-width) {
+      li:hover {
+        background-color: $red;
+      }
+    }
+
+    li.menu{
+      cursor: pointer;
+      height: 72px;
+      -webkit-transition-duration:0.15s;
+      -moz-transition-duration:0.15s;
+      -o-transition-duration:0.15s;
+      transition-duration:0.15s;
+
+      &:hover{
+        background-color: $red;
+      }
+
+      #dropdown-content{
+        padding: 24px 20px 24px 20px;
+      }
+    }
+
+    .active {
+      a {
+        background-color: $red;
+        color: #ffffff;
+        &:hover,
+        &:focus {
+          background-color: $red;
+          color: #ffffff;
+        }
+      }
+    }
+
+    .open {
+      a:hover,
+      a:focus {
+        color: #ffffff;
+        background-color: $red;
+      }
+      @media (max-width: $mobile-width) {
+        .dropdown-menu {
+          li {
+            a {
+              color: #ffffff;
+              &:hover,
+              &:focus {
+                background-color: $red;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .dropdown-menu {
+      margin-top: 3px;
+      background-color: $red;
+
+      li{
+        height: 35px;
+      }
+
+      li.divider{
+        height: 2px;
+      }
+
+      a {
+        line-height: 35px;
+        min-width: 220px;
+      }
+      @media (max-width: $mobile-width) {
+        li {
+          a {
+            background-color: $red;
+            color: #ffffff;
+          }
+        }
+      }
+      @media (min-width: $desktop-width) {
+        /*&:before {
+          position: absolute;
+          top: -10px;
+          right: 9px;
+          display: inline-block;
+          border-right: 10px solid transparent;
+          border-bottom: 10px solid rgba(0, 0, 0, 0.2);
+          border-left: 10px solid transparent;
+          content: '';
+        }
+        &:after {
+          position: absolute;
+          top: -9px;
+          right: 9px;
+          display: inline-block;
+          border-right: 9px solid transparent;
+          border-bottom: 9px solid $red;
+          border-left: 9px solid transparent;
+          content: '';
+        }*/
+      }
+    }
+  }
+
+  @media (min-width: $desktop-width) {
+    #navbar-mobile{
+      display: none!important;
+    }
+
+    #navbar-desktop{
+      display: block!important;
+    }
+  }
+
+  @media (max-width: $mobile-width) {
+    #navbar-desktop{
+      display: none!important;
+    }
+
+    #navbar-mobile{
+      background-color: $red;
+      margin-top: 3px;
+
+      ul{
+        li{
+          a{
+            display: block;
+            padding: 0 25px;
+          }
+        }
+      }
+    }
+  }
+
+  .navbar-toggle {
+    border: none;
+    border-radius: 0;
+    margin: 0!important;
+    padding: 24px 20px 22px 20px!important;
+    -webkit-transition-duration:0.15s;
+    -moz-transition-duration:0.15s;
+    -o-transition-duration:0.15s;
+    transition-duration:0.15s;
+
+    &:hover{
+      background: $red;
+    }
+  }
+
+  .icon-bar {
+    background-color: #ffffff!important;
+    width: 35px!important;
+    display: block;
+    height: 2px;
+    border-radius: 1px;
+  }
+
+  .icon-bar + .icon-bar{
+    margin-top: 10px!important;
+  }
+}
+
+.navbar-pro-red{
+  background-color: $red!important;
+}

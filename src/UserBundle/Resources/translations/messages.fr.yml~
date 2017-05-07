@@ -1,0 +1,13 @@
+profile:
+    email: 'Adresse e-mail'
+    first_name: Nom
+    last_name: Prénom
+    company: Compagnie
+    profession: Profession
+    specialization: Spécialisation
+    location_street: Adresse
+    location_postalCode: 'Code postal'
+    location_city: Ville
+    location_country: Pays
+    language: Langues
+    edit.save: 'Mettre à jour'

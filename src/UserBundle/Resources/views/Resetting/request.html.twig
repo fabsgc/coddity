@@ -1,0 +1,39 @@
+{% trans_default_domain('FOSUserBundle') %}
+
+{% extends "AppBundle::layout.html.twig" %}
+
+{% block title %}Récupérer mon mot de passe{% endblock %}
+
+{% block content %}
+    <div class="background-image background-desktop"></div>
+    <div class="container">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    {% include('AppBundle::flash-message.html.twig') %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="box box-login center-block">
+                        <div class="box-heading">
+                            <div class="box-title"><i class="fa fa-user"></i> Récupérer mon mot de passe</div>
+                        </div>
+                        <div class="box-body">
+                            <form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="fos_user_resetting_request">
+                                <div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="username" name="username" required="required" placeholder="e-mail" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <button type="submit" class="btn btn-red">{{ 'resetting.request.submit'|trans }}</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

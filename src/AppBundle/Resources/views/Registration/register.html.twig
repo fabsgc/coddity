@@ -1,0 +1,40 @@
+{% trans_default_domain('App') %}
+
+{% extends('AppBundle::layout.html.twig') %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <!-- Autocomplete init -->
+    <script src="http://maps.googleapis.com/maps/api/js?libraries=places&key={{ google_api_key }}&v=3"></script>
+    <script src="{{ asset('admin/dist/js/places_autocomplete.js') }}"></script>
+    <script src="{{ asset('admin/dist/js/collection-form.js') }}"></script>
+
+    <script type="text/javascript">
+        initAutocomplete();
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div class="background-image background-registration"></div>
+    <div class="container">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-1">
+                    <h1 class="text-center">Inscription</h1>
+                    <div class="box box-login center-block">
+                        <div class="box-body">
+                            {{ form_start(form) }}
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    {% include('AppBundle::Registration/login.html.twig') %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

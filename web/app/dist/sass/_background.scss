@@ -1,0 +1,39 @@
+.background-home {
+  @include background(image-url("background/home.png"), center fixed no-repeat);
+}
+
+.background-login {
+  @include background(image-url("background/login.png"), center fixed no-repeat);
+}
+
+.background-service {
+  @include background(image-url("background/presentation.png"), center fixed no-repeat);
+}
+
+.background-desktop {
+  @include background(image-url("background/login.png"), center fixed no-repeat);
+}
+
+.background-meeting{
+  @include background(image-url("background/meeting.png"), center fixed no-repeat);
+}
+
+.background-registration{
+  @include background(image-url("background/login.png"), center fixed no-repeat);
+}
+
+.background-bill{
+  @include background(image-url("background/bill.png"), center fixed no-repeat);
+}
+
+.background-calendar{
+  @include background(image-url("background/calendar.png"), center fixed no-repeat);
+}
+
+.background-availability{
+  @include background(image-url("background/availability.png"), center fixed no-repeat);
+}
+
+.background-subscription{
+  @include background(image-url("background/login.png"), center fixed no-repeat);
+}
