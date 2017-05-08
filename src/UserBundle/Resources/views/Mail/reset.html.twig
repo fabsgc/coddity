@@ -1,0 +1,15 @@
+{% extends('AppBundle:Mail:layout.html.twig') %}
+
+{% block content %}
+
+    Bonjour  {{ user.username }},<br><br>
+
+    Vous avez demandé à recevoir à nouveau votre mot de passe.<br><br>
+
+    <strong>Pour réinitialiser votre mot de passe cliquez sur ce lien :</strong> <a href="{{ confirmationUrl }}">{{ confirmationUrl }}</a><br><br>
+
+    Si vous n'avez formulé aucune demande en ce sens, aucune action supplémentaire de votre part n'est nécessaire et vous pouvez ignorer ce message.<br><br>
+
+    À bientôt.
+
+{% endblock %}

@@ -2,7 +2,6 @@
 
 namespace AppBundle\Twig;
 
-use AppBundle\Entity\Professional;
 use Doctrine\ORM\EntityManager;
 
 class AppExtension extends \Twig_Extension
@@ -45,21 +44,6 @@ class AppExtension extends \Twig_Extension
     public function dateFrShort(\DateTime $date = null)
     {
         return $this->dateFr($date, 'dd/MM/yyyy HH:mm');
-    }
-
-    public function hasSubscriptionFilter(Professional $professional)
-    {
-        if($this->em->getRepository('AppBundle:Subscription')->findCurrent($professional) != null)
-            return true;
-
-        return false;
-    }
-
-    public function offerDuration($interval, $recurrences)
-    {
-        $months = preg_replace('/\D/', '', $interval);
-
-        return $months * $recurrences;
     }
 
     public function getName()

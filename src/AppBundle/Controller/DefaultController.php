@@ -26,12 +26,8 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         /** @var EntityManager $entityManager */
-        $entityManager = $this->getDoctrine()->getManager();
-        $professions = $this->get('app.professions')->getAll();
 
-        return $this->render('AppBundle:Home:index.html.twig', [
-            'professions' => $professions
-        ]);
+        return $this->render('AppBundle:Home:index.html.twig', []);
     }
 
 	/**
@@ -42,7 +38,7 @@ class DefaultController extends Controller
 	 */
 	public function indexQaAction(Request $request)
 	{
-		return $this->render('AppBundle:Home:qa.html.twig', array());
+		return $this->render('AppBundle:Home:qa.html.twig', []);
 	}
 
     /**

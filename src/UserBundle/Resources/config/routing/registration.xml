@@ -13,7 +13,7 @@
     </route>
 
     <route id="fos_user_registration_confirm" path="/confirm/{token}" methods="GET">
-        <default key="_controller">AppBundle:Registration:confirm</default>
+        <default key="_controller">UserBundle:Registration:confirm</default>
     </route>
 
     <route id="fos_user_registration_confirmed" path="/confirmed" methods="GET">

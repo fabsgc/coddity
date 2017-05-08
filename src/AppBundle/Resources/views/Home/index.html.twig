@@ -2,25 +2,19 @@
 
 {% extends('AppBundle::layout.html.twig') %}
 
-{% block title %}{{ 'home.title'|trans }}{% endblock %}
+{% block title %}Accueil{% endblock %}
 
 {% block content %}
     <div class="background-image background-home"></div>
     <div class="container">
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    {% include('AppBundle::flash-message.html.twig') %}
-                </div>
-            </div>
+            {% include('AppBundle::flash-message.html.twig') %}
             <div class="row">
                 <div class="col-md-12 text-center">
-
+                    <h1 class="description">Description principale</h1>
+                    <h3 class="sub-description">Description secondaire en dessous</h3>
                 </div>
             </div>
         </div>
     </div>
-{% endblock %}
-{% block javascripts %}
-    <script src="{{ asset('app/dist/js/jquery.geocomplete.js') }}"></script>
 {% endblock %}

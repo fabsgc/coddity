@@ -1,0 +1,21 @@
+{% block subject %}Confirmation de votre compte{% endblock %}
+
+{% block body_text %}
+    {% autoescape false %}
+
+        Bonjour  {{ user.username }},
+
+        Vous avez demandé à recevoir à nouveau votre mot de passe.
+
+        Pour réinitialiser votre mot de passe cliquez sur ce lien : {{ confirmationUrl }}
+
+        Si vous n'avez formulé aucune demande en ce sens, aucune action supplémentaire de votre part n'est nécessaire et vous pouvez ignorer ce message.
+
+        À bientôt.
+
+    {% endautoescape %}
+{% endblock %}
+
+{% block body_html %}
+    {% include 'UserBundle:Mail:resetting.html.twig' %}
+{% endblock %}

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -18,7 +18,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\HasLifecycleCallbacks
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="type", type="string")
- * @UniqueEntity("email")
+ * @DoctrineAssert\UniqueEntity(fields={"username"}, message="Ce nom d'utilisateur est déjà utilisé" )
+ * @DoctrineAssert\UniqueEntity(fields={"email"}, message="Cet email est déjà utilisé" )
  */
 class User extends BaseUser
 {
@@ -33,49 +34,42 @@ class User extends BaseUser
 
     /**
      * @var string
-     * @ORM\Column(length=64)
+     * @ORM\Column(length=64, nullable=true)
      * @Assert\Length(min=3, max=64)
      */
     private $firstname;
 
     /**
      * @var string
-     * @ORM\Column(length=64)
+     * @ORM\Column(length=64, nullable=true)
      * @Assert\Length(min=3, max=64)
      */
     private $lastname;
 
     /**
      * @var string
-     * @Gedmo\Slug(fields={"firstname", "lastname"})
+     * @Gedmo\Slug(fields={"username"})
      * @ORM\Column(length=255, unique=true)
      */
     private $slug;
 
     /**
-     * @var string
-     * @ORM\Column(length=255, nullable=true, options={"default": "default-upload-picture.png"})
+     * @var File
+     * @Assert\File(mimeTypes={ "image/jpeg", "image/png" })
      */
     private $picture;
 
     /**
-     * @var File
-     * @Assert\File(mimeTypes={ "image/jpeg", "image/png" })
-     */
-    private $pictureUpload;
-
-    /**
      * @var \DateTime
      *
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $registrationDate;
 
-    /**
-     * @var string
-     * @ORM\Column(length=32)
-     */
-    private $token;
+    public function __construct() {
+        parent::__construct();
+    }
+
 
     /**
      * Get id
@@ -85,18 +79,6 @@ class User extends BaseUser
     public function getId()
     {   
         return $this->id;
-    }
-
-    public function setTitle($title)
-    {
-        $this->title = $title;
-        return $this;
-    }
-
-    public function setBirthDate($birthDate)
-    {
-        $this->birthDate = $birthDate;
-        return $this;
     }
 
     /**
@@ -154,7 +136,7 @@ class User extends BaseUser
     }
 
     /**
-     * @return string
+     * @return File
      */
     public function getPicture()
     {
@@ -162,7 +144,7 @@ class User extends BaseUser
     }
 
     /**
-     * @param string $picture
+     * @param File $picture
      * @return User
      */
     public function setPicture($picture)
@@ -190,48 +172,8 @@ class User extends BaseUser
     }
 
     /**
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
-     * */
-    public function assignUsername()
-    {
-        $this->username = $this->email;
-    }
-
-    /**
-     * @return string
+     * @return bool
      */
-    public function getToken()
-    {
-        return $this->token;
-    }
-
-    /**
-     * @param string $token
-     * @return User
-     */
-    public function setToken($token)
-    {
-        $this->token = $token;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPictureUpload()
-    {
-        return $this->pictureUpload;
-    }
-
-    /**
-     * @param mixed $pictureUpload
-     */
-    public function setPictureUpload($pictureUpload)
-    {
-        $this->pictureUpload = $pictureUpload;
-    }
-
     public function isExpired()
     {
         return !$this->isAccountNonExpired();

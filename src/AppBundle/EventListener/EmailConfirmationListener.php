@@ -46,8 +46,7 @@ class EmailConfirmationListener implements EventSubscriberInterface
     /**
      * @return array
      */
-    public static function getSubscribedEvents()
-    {
+    public static function getSubscribedEvents() {
         return array(
             FOSUserEvents::REGISTRATION_SUCCESS => 'onRegistrationSuccess',
         );
@@ -59,9 +58,10 @@ class EmailConfirmationListener implements EventSubscriberInterface
     public function onRegistrationSuccess(FormEvent $event)
     {
         /** @var $user \FOS\UserBundle\Model\UserInterface */
-        $user = $this->session->get('user-register');
+        $user = $event->getForm()->getData();
 
         $user->setEnabled(false);
+
         if (null === $user->getConfirmationToken()) {
             $user->setConfirmationToken($this->tokenGenerator->generateToken());
         }

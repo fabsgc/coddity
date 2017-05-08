@@ -1,5 +1,0 @@
-AppBundle\Entity\User:
-    properties:
-        email:
-            - Email: ~
-

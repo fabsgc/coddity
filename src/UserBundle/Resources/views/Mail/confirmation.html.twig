@@ -1,0 +1,17 @@
+{% extends('AppBundle:Mail:layout.html.twig') %}
+
+{% block content %}
+
+    Bonjour {{ user.username }},<br><br>
+
+    <strong>Nous avons bien pris en compte votre inscription.</strong><br><br>
+
+    <strong><a href="{{ confirmationUrl }}">Cliquez sur ce lien pour confirmer votre inscription : {{ confirmationUrl }}</a></strong><br><br>
+
+    <br>
+    <br>
+    Merci de votre confiance.
+
+    {{ parent() }}
+
+{% endblock %}

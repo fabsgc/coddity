@@ -42,10 +42,6 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
-    globals:
-      dateformat: %editable.date_format%
-      google_api_key: %editable.google_api_key%
-      google_analytics_id: %editable.google_analytics_id%
     form:
       resources: ['bootstrap_3_layout.html.twig']
     paths:
@@ -98,10 +94,10 @@ fos_user:
   registration:
       confirmation:
           enabled: true
-          template: AppBundle:Mail:confirmation.email.twig
+          template: UserBundle:Mail:confirmation.email.twig
   resetting:
       email:
-          template: AppBundle:Mail:resetting.email.twig
+          template: UserBundle:Mail:resetting.email.twig
   from_email:
       address:        "%editable.mailer_from%"
       sender_name:   "%editable.mailer_from_alias%"

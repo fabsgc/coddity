@@ -3,31 +3,8 @@ services:
 #        class: AdminBundle\Example
 #        arguments: ["@service_id", "plain_value", %parameter%]
   admin.user.form.type:
-      class: AdminBundle\Form\Type\InternType
+      class: AdminBundle\Form\Type\UserType
       calls:
         - [setContainer, ['@service_container']]
       tags:
         - { name: form.type, alias: 'container_aware' }
-  admin.intern.form.type:
-        class: AdminBundle\Form\Type\ProfessionalType
-        calls:
-          - [setContainer, ['@service_container']]
-        tags:
-          - { name: form.type, alias: 'container_aware' }
-  admin.payment_method.form.type:
-        class: AdminBundle\Form\Type\PaymentMethodType
-        calls:
-          - [setContainer, ['@service_container']]
-        tags:
-          - { name: form.type, alias: 'container_aware' }
-  admin.prospect_reminder.form.type:
-          class: AdminBundle\Form\Type\ProspectReminderType
-          calls:
-            - [setContainer, ['@service_container']]
-          tags:
-            - { name: form.type, alias: 'container_aware' }
-  admin.commercial.form.account_manager:
-    class: AdminBundle\Form\CommercialAccountManager
-    arguments: [@router]
-    tags:
-      - { name: form.type, alias: 'container_aware' }

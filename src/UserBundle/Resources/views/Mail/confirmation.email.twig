@@ -1,0 +1,18 @@
+{% block subject %}Confirmation de votre inscription{% endblock %}
+
+{% block body_text %}
+    {% autoescape false %}
+        Bonjour {{ user.username }},
+
+        Nous avons bien pris en compte votre inscription.
+
+        Cliquez sur ce lien pour confirmer votre inscription : {{ confirmationUrl }}
+
+        Merci de votre confiance.
+
+    {% endautoescape %}
+{% endblock %}
+
+{% block body_html %}
+    {% include 'UserBundle:Mail:confirmation.html.twig' %}
+{% endblock %}

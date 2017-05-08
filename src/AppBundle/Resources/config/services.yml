@@ -9,51 +9,9 @@ services:
             - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\SubmitType }
 
     app.mailer:
-            class: AppBundle\Service\Mailer
-            arguments:
-                - '@mailer'
-                - '@templating'
-                - '%editable.mailer_from%'
-                - '%editable.mailer_from_alias%'
-
-    support.form.type.problems_choices:
-        class: AppBundle\Form\Type\ProblemsChoicesType
+        class: AppBundle\Service\Mailer
         arguments:
-            - '%problems_choices%'
-        tags:
-            - { name: form.type }
-
-    app.authentication_handler:
-            class: AppBundle\Handler\AuthenticationHandler
-            arguments:  ["@security.http_utils", {}]
-            tags:
-                - { name: 'monolog.logger', channel: 'security' }
-            calls:
-                - [ setContainer, [ @service_container ] ]
-
-    app.monetico:
-                class: AppBundle\Service\Monetico\Monetico
-                calls:
-                    - [ setContainer, [ @service_container ] ]
-                arguments:
-                    - '%monetico%'
-    app.sms:
-            class: AppBundle\Service\Sms
-            calls:
-                - [ setContainer, [ @service_container ] ]
-            arguments:
-                - '%editable.ovh_sms_consumer_key%'
-                - '%editable.ovh_sms_application_key%'
-                - '%editable.ovh_sms_application_secret%'
-    app.subscriptions:
-            class: AppBundle\Service\Subscriptions
-            calls:
-                - [ setContainer, [ @service_container ] ]
-    app.professions:
-                scope: request
-                class: AppBundle\Service\Professions
-                arguments:
-                     - '%editable.default_professions%'
-                calls:
-                     - [ setContainer, [ @service_container ] ]
-
+            - '@mailer'
+            - '@templating'
+            - '%editable.mailer_from%'
+            - '%editable.mailer_from_alias%'

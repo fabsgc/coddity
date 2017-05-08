@@ -1,30 +1,24 @@
-{% trans_default_domain('App') %}
+{% trans_default_domain('Profile') %}
 
 {% extends('AppBundle::layout.html.twig') %}
 
-{% block title %}Modifier mon profil{% endblock %}
+{% form_theme form '@AppBundle/Resources/views/Form/fields.html.twig' %}
+
+{% block title %}{{ app.user.firstName ~ " " ~ app.user.lastName|upper }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('app/vendor/datepicker/datepicker.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}
 
 {% block content %}
-    <div class="background-image background-bill"></div>
+    <div class="background-image background-desktop"></div>
     <div class="container">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    {% include('AppBundle::flash-message.html.twig') %}
-                </div>
-            </div>
-            <h1 class="text-center">Modifier mon profil</h1>
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2 edit-profile">
-                    {% include('UserBundle::Profile/tab.html.twig') %}
-                    <div class="box box-no-border-radius-top center-block">
-                        <div class="box-body">
-                            {{ form_start(form) }}
-                            {{ form_errors(form) }}
-                            {{ form_end(form) }}
-                        </div>
-                    </div>
-                </div>
+        <div class="row">
+            <div class="col-md-12">
             </div>
         </div>
     </div>

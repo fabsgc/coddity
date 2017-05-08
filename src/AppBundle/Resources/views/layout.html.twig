@@ -27,7 +27,7 @@
     {% endif %}
     <body class="{{ backgroundBody }}">
         <div id="wrapper">
-            <nav class="navbar navbar-default navbar-pro navbar-static-top">
+            <nav class="navbar navbar-default navbar-pro navbar-pro-red navbar-static-top">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-mobile" aria-expanded="false" aria-controls="navbar">
                         <span class="sr-only">Toggle navigation</span>
@@ -44,8 +44,8 @@
                         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
 
                         {% else %}
-                            <li><a href="{{ path('fos_user_security_login') }}"><i class="fa fa-sign-in"></i> Se connecter</a></li>
-                            <li><a href="{{ path('register') }}"><i class="fa fa-user"></i> S'inscrire</a></li>
+                            <li><a href="{{ path('fos_user_security_login') }}"><i class="fa fa-sign-in"></i> Connexion</a></li>
+                            <li><a href="{{ path('register') }}"><i class="fa fa-user"></i> Inscription</a></li>
                         {% endif %}
                         <li class="menu" id="menu-toggle">
                             <span class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -63,7 +63,7 @@
                                 <li><a href="{{ path('qa') }}"><i class="fa fa-question-circle-o"></i> Foire aux questions</a></li>
                                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                                     <li role="separator" class="divider"></li>
-                                    <li><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-sign-out"></i> Se déconnecter</a></li>
+                                    <li><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-sign-out"></i> Déconnexion</a></li>
                                 {% endif %}
                             </ul>
                         </li>
@@ -73,9 +73,9 @@
                     <ul class="nav navbar-nav navbar-right">
                         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                             <li><a href="{{ path('qa') }}"><i class="fa fa-question-circle-o"></i> Foire aux questions</a></li>
-                            <li><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-sign-out"></i> Se déconnecter</a></li>
+                            <li><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-sign-out"></i> Déconnexion</a></li>
                         {% else %}
-                            <li><a href="{{ path('fos_user_security_login') }}"><i class="fa fa-sign-in"></i> Se connecter</a></li>
+                            <li><a href="{{ path('fos_user_security_login') }}"><i class="fa fa-sign-in"></i> Déconnexion</a></li>
                             <li><a href="{{ path('register') }}"><i class="fa fa-user"></i> S'inscrire</a></li>
                             <li><a href="{{ path('qa') }}"><i class="fa fa-question-circle-o"></i> Foire aux questions</a></li>
                         {% endif %}

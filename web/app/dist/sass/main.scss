@@ -14,10 +14,10 @@ $desktop-width: 768px;
 
 /* Colors */
 
-$dark-red: #471609;
-$light-red: #c92421;
-$red: #ab1919;
-$hover-red: #921919;
+$dark-red: #0d1e34;
+$light-red: #2a90cb;
+$red: #2980b9;
+$hover-red: #2d6fb9;
 $grey: #dad8d8;
 $light-grey: #efebeb;
 $small-dark-grey: #919499;
@@ -26,7 +26,6 @@ $dark-grey: #7b7c7c;
 
 /* Fonts */
 
-@include font-face("Ebrima", font-files("Ebrima.ttf"));
 @include font-face("Open Sans", font-files("OpenSans-Regular.ttf"));
 
 @include font-face("Bebas Neue", font-files("BebasNeue.otf"));
@@ -35,12 +34,8 @@ $dark-grey: #7b7c7c;
 /* General */
 
 body {
-  font-family: "Ebrima", sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-size: 15px;
-}
-
-body.background-red{
-  background-color: rgba(171, 25, 25, 1.5);
 }
 
 body.background-grey{
@@ -69,16 +64,8 @@ a.link-white{
 }
 
 h1, h2, h3, h4, h5, h6{
-  font-family: "Bebas Neue", sans-serif;
+  font-family: "Open Sans", sans-serif;
   color: $red!important;
-}
-
-.font-bebas-neue{
-  font-family: "Bebas Neue", sans-serif!important;
-}
-
-.font-century-gothic{
-  font-family: "Century Gothic", sans-serif!important;
 }
 
 @media (max-width: $mobile-width) {
@@ -317,14 +304,8 @@ textarea.form-control {
 @import "profile";
 @import "settings";
 @import "sidebar";
-@import "search";
 @import "footer";
 @import "background";
-@import "presentation";
 @import "qa";
 @import "register";
-@import "mark";
-@import "meeting";
 @import "edit_profile";
-@import "availability";
-@import "subscriptions";

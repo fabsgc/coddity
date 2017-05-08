@@ -1,7 +1,7 @@
 <?php
 
 namespace AppBundle\Repository;
-use AppBundle\Entity\User;
+
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -13,7 +13,7 @@ use Doctrine\ORM\EntityRepository;
 class UserRepository extends EntityRepository
 {
     /**
-     * Find all users by type (professional|customer|intern)
+     * Find all users by type (user|admin)
      * @param string $type
      * @return array
      */

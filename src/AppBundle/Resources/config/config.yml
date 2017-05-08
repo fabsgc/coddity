@@ -1,4 +1,0 @@
-parameters:
-    problems_choices:
-        connection: support.problems.connection
-        calendar: support.problems.calendar

@@ -11,6 +11,7 @@
 
 namespace UserBundle\Controller;
 
+use AppBundle\Entity\User;
 use AppBundle\Util\Now;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
 use FOS\UserBundle\Event\FormEvent;
@@ -37,8 +38,7 @@ class ResettingController extends Controller
     /**
      * Request reset user password: show form.
      */
-    public function requestAction()
-    {
+    public function requestAction() {
         return $this->render('@FOSUser/Resetting/request.html.twig');
     }
 
@@ -49,8 +49,7 @@ class ResettingController extends Controller
      *
      * @return Response
      */
-    public function sendEmailAction(Request $request)
-    {
+    public function sendEmailAction(Request $request) {
         $username = $request->request->get('username');
 
         /** @var $user UserInterface */
@@ -68,7 +67,12 @@ class ResettingController extends Controller
 
         $ttl = $this->container->getParameter('fos_user.resetting.retry_ttl');
 
-        if (null !== $user && !$user->isPasswordRequestNonExpired($ttl)) {
+        if (null !== $user) {
+            if($user->isPasswordRequestNonExpired($ttl)) {
+                $this->addFlash('warning', 'Une demande de changement de mot de passe est déjà en cours');
+                return $this->redirectToRoute('fos_user_resetting_request');
+            }
+
             $event = new GetResponseUserEvent($user, $request);
             $dispatcher->dispatch(FOSUserEvents::RESETTING_RESET_REQUEST, $event);
 
@@ -104,16 +108,17 @@ class ResettingController extends Controller
             }
 
             $this->addFlash('success', 'Un e-mail vous a été envoyé. Il contient un lien sur lequel il vous faudra cliquer afin de réinitialiser votre mot de passe');
-            return $this->redirectToRoute('home');
+            //return $this->redirectToRoute('home');
+
+            return $this->render('@FOSUser/Resetting/request.html.twig');
         }
 
-        if($user->isPasswordRequestNonExpired($ttl)){
-            $this->addFlash('warning', 'Une demande de récupératin de mot de passe est déjà en cours');
-            return $this->redirectToRoute('home');
+        if(!$user instanceof User){
+            $this->addFlash('danger', 'Aucun de nos utilisateurs n\'est enregistré avec cet identifiant');
+            return $this->redirectToRoute('fos_user_resetting_request');
         }
 
-        $this->addFlash('danger', 'Aucun de nos utilisateurs n\'est enregistré avec cet identifiant');
-        return $this->redirectToRoute('home');
+        //return $this->redirectToRoute('home');
     }
 
     /**
@@ -128,7 +133,6 @@ class ResettingController extends Controller
         $username = $request->query->get('username');
 
         if (empty($username)) {
-            // the user does not come from the sendEmail action
             return new RedirectResponse($this->generateUrl('fos_user_resetting_request'));
         }
 
@@ -145,8 +149,7 @@ class ResettingController extends Controller
      *
      * @return Response
      */
-    public function resetAction(Request $request, $token)
-    {
+    public function resetAction(Request $request, $token) {
         /** @var $formFactory \FOS\UserBundle\Form\Factory\FactoryInterface */
         $formFactory = $this->get('fos_user.resetting.form.factory');
         /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */

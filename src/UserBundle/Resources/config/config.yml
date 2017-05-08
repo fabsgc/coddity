@@ -1,13 +1,3 @@
 twig:
     form_themes:
         - '@UserBundle/Resources/views/Form/fields.html.twig'
-
-parameters:
-    honorary_choices:
-        HOR: Honoraires
-        DOS: Dossier
-
-    title_choices:
-        M: M.
-        MME: Mme
-        Maitre: Maître

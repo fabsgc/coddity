@@ -18,30 +18,3 @@ parameters:
     editable.mailer_port: ~
     editable.mailer_from: ~
     editable.mailer_from_alias: ~
-
-
-    editable.date_format: "j M Y h:i:s"
-    editable.google_api_key: ~
-    editable.google_analytics_id: ~
-    editable.google_analytics_view: ~
-
-    editable.ovh_sms_consumer_key: ~
-    editable.ovh_sms_application_key: ~
-    editable.ovh_sms_application_secret: ~
-    editable.default_professions: '{"Notaire": [], "Avocat": ["Penal", "Prud'' hommes", "Commerce"]}'
-
-    editable.search_by_page: 10
-
-    monetico:
-        key: 12345678901234567890123456789012345678P0
-        ept_number: 0000001
-        version: '3.0'
-        url_server: https://p.monetico-services.com/test/
-        company_code: PROFLIB
-
-
-
-
-    bills_directory: %kernel.root_dir%/../src/AdminBundle/Resources/bills/
-    uploads_directory: %kernel.root_dir%/../web/app/uploads/
-

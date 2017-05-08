@@ -2,22 +2,17 @@
 
 {% extends "AppBundle::layout.html.twig" %}
 
-{% block title %}{{ 'layout.login'|trans }}{% endblock %}
+{% block title %}Connexion{% endblock %}
 
 {% block content %}
     <div class="background-image background-desktop"></div>
     <div class="container">
         <div class="container-fluid">
-            <h1 class="text-center">{{ 'layout.login'|trans }}</h1>
             <div class="row">
+                {% include('AppBundle::flash-message.html.twig') %}
                 <div class="col-md-6 col-md-offset-3">
+                    <h1 class="text-center">Connexion</h1>
                     <div class="box box-login center-block">
-                        <div class="box-heading">
-                            <div class="box-title"></div>
-                            <div class="btn-group pull-right">
-                                <a href="{{ path("fos_user_registration_register") }}">{{ 'layout.register'|trans }}</a>
-                            </div>
-                        </div>
                         <div class="box-body">
                             {% if error %}
                                 <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> {{ error.messageKey|trans(error.messageData, 'security') }}</div>

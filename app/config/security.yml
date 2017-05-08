@@ -4,25 +4,7 @@ security:
     encoders:
       FOS\UserBundle\Model\UserInterface: bcrypt
     role_hierarchy:
-      ROLE_SUPER_ADMIN: # Super admin
-        - ROLE_SALES_MANAGER
-        - ROLE_FINANCIAL_OFFICER
-        - ROLE_ANALYST
-        - ROLE_TECHNICAL_ADMIN
-        - ROLE_PLATFORM_ADMIN
-        - ROLE_ACCOUNT_MANAGER
-        - ROLE_OFFER_MANAGER
-        - ROLE_ALLOWED_TO_SWITCH
-      ROLE_SALES_MANAGER: ROLE_ACCOUNT_MANAGER # Directeur commercial
-      ROLE_FINANCIAL_OFFICER: ROLE_INTERN # Responsable financier
-      ROLE_ANALYST: ROLE_INTERN # Analyste
-      ROLE_TECHNICAL_ADMIN: ROLE_INTERN # Administrateur technique
-      ROLE_PLATFORM_ADMIN: ROLE_INTERN # Administrateur plateforme
-      ROLE_ACCOUNT_MANAGER: ROLE_INTERN # Chargé de clientèle
-      ROLE_OFFER_MANAGER: ROLE_INTERN # Gestionnaire d'offres
-      ROLE_INTERN: ROLE_USER # Utilisateur interne (accès au panel de gestion)
-      ROLE_PROFESSIONAL: ROLE_USER # Professionnel
-      ROLE_CUSTOMER: ROLE_USER # Client (du professionnel)
+      ROLE_ADMIN:       ROLE_USER
 
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
@@ -41,7 +23,6 @@ security:
             switch_user: true
             form_login:
               use_referer: true
-              success_handler: app.authentication_handler
               provider: fos_userbundle
               csrf_token_generator: security.csrf.token_manager
             remember_me:
@@ -59,4 +40,4 @@ security:
       - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
       - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
       - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-      - { path: ^/admin/, role: ROLE_INTERN }
+      - { path: ^/admin/, role: ROLE_ADMIN }
