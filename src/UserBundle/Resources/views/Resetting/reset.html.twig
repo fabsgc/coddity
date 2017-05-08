@@ -15,7 +15,12 @@
                     <div class="box box-login center-block">
                         <div class="box-body">
                             {{ form_start(form, { 'action': path('fos_user_resetting_reset', {'token': token}), 'attr': { 'class': 'fos_user_resetting_reset' } }) }}
-                            {{ form_widget(form) }}
+                            <div class="form-group">
+                                {{ form_widget(form.plainPassword.first, { 'label' : false, 'attr': {'placeholder': 'Nouveau mot de passe'} }) }}
+                            </div>
+                            <div class="form-group">
+                                {{ form_widget(form.plainPassword.second, { 'label' : false, 'attr': {'placeholder': 'Confirmation du nouveau mot de passe'} }) }}
+                            </div>
                             <div>
                                 <input type="submit" value="{{ 'resetting.reset.submit'|trans }}"  class="btn btn-red"/>
                             </div>

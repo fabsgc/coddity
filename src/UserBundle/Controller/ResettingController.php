@@ -108,17 +108,14 @@ class ResettingController extends Controller
             }
 
             $this->addFlash('success', 'Un e-mail vous a été envoyé. Il contient un lien sur lequel il vous faudra cliquer afin de réinitialiser votre mot de passe');
-            //return $this->redirectToRoute('home');
-
-            return $this->render('@FOSUser/Resetting/request.html.twig');
+            return $this->redirectToRoute('home');
         }
 
         if(!$user instanceof User){
             $this->addFlash('danger', 'Aucun de nos utilisateurs n\'est enregistré avec cet identifiant');
-            return $this->redirectToRoute('fos_user_resetting_request');
         }
 
-        //return $this->redirectToRoute('home');
+        return $this->render('@FOSUser/Resetting/request.html.twig');
     }
 
     /**
@@ -160,7 +157,6 @@ class ResettingController extends Controller
         $user = $userManager->findUserByConfirmationToken($token);
 
         if (null === $user) {
-            //throw new NotFoundHttpException(sprintf('The user with "confirmation token" does not exist for value "%s"', $token));
             $this->addFlash('danger', 'Ce lien semble invalide. Veuillez vérifier que vous avez entrez une adresse correcte.');
             return $this->redirectToRoute('home');
         }
@@ -180,6 +176,9 @@ class ResettingController extends Controller
             $event = new FormEvent($form, $request);
             $dispatcher->dispatch(FOSUserEvents::RESETTING_RESET_SUCCESS, $event);
 
+            $user->setConfirmationToken(null);
+            $user->setPasswordRequestedAt(null);
+            $user->setPlainPassword($form->get('plainPassword')->getData());
             $userManager->updateUser($user);
 
             if (null === $response = $event->getResponse()) {

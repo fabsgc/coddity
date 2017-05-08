@@ -48,6 +48,8 @@ class RegistrationController extends Controller {
 
                 $userManager->updateUser($user);
 
+                var_dump($user);
+
                 $this->addFlash('success', 'Votre inscription a bien été prise en compte. Vous allez recevoir un mail de confirmation contenant un lien d\'activation.');
 
                 return $this->redirectToRoute('home');
