@@ -17,6 +17,7 @@ class SecurityController extends Controller
      */
     public function loginAction(Request $request)
     {
+        if($this->isGranted('ROLE_ADMIN')) return $this->redirectToRoute('admin_dashboard');
         if($this->isGranted('ROLE_USER')) return $this->redirectToRoute('home');
 
         /** @var $session \Symfony\Component\HttpFoundation\Session\Session */

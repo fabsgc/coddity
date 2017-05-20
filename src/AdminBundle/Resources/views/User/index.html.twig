@@ -1,0 +1,58 @@
+{% extends "AdminBundle::layout.html.twig" %}
+
+{% set title = 'Liste des utillisateurs' %}
+
+{% block content %}
+    <a href="{{ path('admin_user_register') }}"><button type="button" class="btn btn-info"><i class="fa fa-plus"></i> Nouvel utilisateur</button></a>
+
+    <table width="100%" class="table table-striped table-bordered table-hover" id="datatable">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Nom d'utilisateur</th>
+            <th>Email</th>
+            <th>Date d'inscription</th>
+            <th>Statut</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr id="user-{{ user.id }}">
+                <td>{{ user.id }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.registrationDate|date_fr }}</td>
+                <td>
+                    {% if user.hasRole('ROLE_ADMIN') %}
+                        Admin
+                    {% else %}
+                        Utilisateur
+                    {% endif %}
+                </td>
+                <td>
+                    <a title="Editer" href="{{ path('admin_user_edit', { 'user': user.id }) }}">
+                        <button type="button" class="btn btn-info btn-circle"><i class="fa fa-pencil"></i></button>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <script src="{{ asset('admin/dist/js/confirm-bootstrap.js') }}"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            var table = $('#datatable').DataTable({
+                language: {
+                    url: "{{ asset('admin/vendor/datatables-plugins/French.json') }}"
+                },
+                responsive: true,
+                paging: false,
+                aaSorting: [],
+            });
+
+        });
+    </script>
+{% endblock content %}

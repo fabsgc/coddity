@@ -36,10 +36,35 @@ class LoadData implements FixtureInterface, ContainerAwareInterface, OrderedFixt
         $this->userManager = $this->container->get('fos_user.user_manager');
     }
 
-
-
     public function load(ObjectManager $manager)
     {
+        $userUser = $this->createUser(new User(), 'fabsgc', 'fabien.beaujean@hotmail.fr', 'mdpmdp');
+        $userUser->addRole('ROLE_USER');
+        $this->userManager->updateUser($userUser, true);
 
+        $userAdmin = $this->createUser(new User(), 'admin', 'admin@agreed.fr', 'mdpmdp');
+        $userAdmin->addRole('ROLE_ADMIN');
+        $this->userManager->updateUser($userAdmin, true);
+    }
+
+    private function createUser(User $user, $username, $email, $password) {
+
+        $user->setUsername($username);
+        $user->setEmail($email);
+        $user->setPlainPassword($password);
+        $user->setEnabled(true);
+        $user->setRegistrationDate(Now::now());
+
+        return $user;
+    }
+
+    /**
+     * Get the order of this fixture
+     *
+     * @return integer
+     */
+    public function getOrder()
+    {
+        return 1;
     }
 }

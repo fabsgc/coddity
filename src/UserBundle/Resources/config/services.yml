@@ -1,0 +1,5 @@
+services:
+    user.login_success:
+          class: UserBundle\Service\LoginSuccess
+          arguments:
+                - '@router'
