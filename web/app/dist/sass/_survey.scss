@@ -1,0 +1,24 @@
+#survey_choices_choice_choices, #survey_choices_date_choices{
+  input[type="text"] {
+    width: 80%;
+    display: inline-block;
+  }
+
+  a{
+    float: right;
+    display: inline-block;
+    margin-top: 0!important;
+    width: 18%;
+
+    button {
+      margin-top: 0!important;
+      width: 100%;
+      height: 40px;
+      line-height: 25px;
+    }
+  }
+
+  .form-group:last-child {
+    display: none;
+  }
+}

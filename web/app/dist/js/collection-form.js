@@ -81,7 +81,7 @@ $(document).ready(function() {
      * @returns {String}
      */
     function createRemoveButton() {
-        thisBtnRemove = '<a style="cursor: pointer;" class="remove_object"><button class="btn btn-default btn-sm" style="margin-top:8px;"><i class="fa fa-remove"></i></button></a><div style="margin-top: 10px; margin-bottom: -5px;border-top: 1px solid #e4e4e4"></div>';
+        thisBtnRemove = '<a style="cursor: pointer;" class="remove_object"><button class="btn btn-default btn-sm" style="margin-top:8px;"><i class="fa fa-remove"></i></button></a>';
         if (typeof btnRemove !== 'undefined') {
             thisBtnRemove = btnRemove;
         }

@@ -1,5 +1,5 @@
 <?php
-namespace AdminBundle\Form\Type;
+namespace AppBundle\Form\Type;
 
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
@@ -10,46 +10,37 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class UserType extends AbstractType
+class SurveyType extends AbstractType
 {
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
         $builder
-            ->add('username', TextType::class, array(
-                'label' => 'Nom d\'utilisateur',
+            ->add('name', TextType::class, array(
+                'label' => 'Nom',
             ))
-            ->add('email', TextType::class, array(
-                'label' => 'Email',
-            ))
-            ->add('plainPassword', TextType::class, array(
-                'label' => 'Mot de passe',
-                'required' => false,
-            ))
-            ->add('lastname', TextType::class, array(
-                'label' => 'Nom de famille',
-                'required' => false
-            ))
-            ->add('firstname', TextType::class, array(
-                'label' => 'Prénom',
-                'required' => false
-            ))
-            ->add('enabled', CheckboxType::class, array(
-                'label' => 'Compte activé ?',
-                'required' => false
+            ->add('description', TextareaType::class, array(
+                'label' => 'Description',
             ))
             ->add(
-                'roles', 'choice', [
-                'choices' => ['ROLE_ADMIN' => 'Administrateur', 'ROLE_USER' => 'Utilisateur'],
-                'expanded' => true,
-                'multiple' => true,
-                'label' => 'Statuts'
+                'type', ChoiceType::class, [
+                'choices' => ['CHOICE' => 'Choix', 'DATE' => 'Date'],
+                'label' => 'Type de choix'
             ])
+            ->add('multiple', CheckboxType::class, array(
+                'label' => 'Choix Multiple ?',
+                'required' => false
+            ))
+            ->add('opened', CheckboxType::class, array(
+                'label' => 'Ouvert ?',
+                'required' => false
+            ))
             ->add('submit', SubmitType::class, array(
                 'label' => 'Enregistrer',
                 'attr' => array('class' => 'btn-primary'),
@@ -60,7 +51,7 @@ class UserType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\User'
+            'data_class' => 'AppBundle\Entity\Survey'
         ));
     }
 }

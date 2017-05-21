@@ -1,0 +1,22 @@
+{% trans_default_domain('App') %}
+
+{% extends('AppBundle::layout.html.twig') %}
+
+{% block title %}Mes sondages{% endblock %}
+
+{% block content %}
+    <div class="background-image"></div>
+    <div class="container">
+        <div class="container-fluid">
+            {% include('AppBundle::flash-message.html.twig') %}
+            <div class="row">
+                <h1 class="text-center">Mes sondages</h1>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

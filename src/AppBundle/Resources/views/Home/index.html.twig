@@ -11,8 +11,29 @@
             {% include('AppBundle::flash-message.html.twig') %}
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <h1 class="description">Description principale</h1>
-                    <h3 class="sub-description">Description secondaire en dessous</h3>
+                    <h1 class="description">Le meilleur service de sondage sur Internet</h1>
+                    <h3 class="sub-description">Receuillir les votes de vos amis n'a jamais été aussi simple</h3>
+                </div>
+            </div>
+
+            <div class="row home">
+                <div class="col-md-4">
+                    <i class="fa fa-edit"></i>
+                    <span class="title">Créez des sondages</span>
+                </div>
+                <div class="col-md-4">
+                    <i class="fa fa-users"></i>
+                    <span class="title">Diffusez-les parmi vos amis</span>
+                </div>
+                <div class="col-md-4">
+                    <i class="fa fa-line-chart"></i>
+                    <span class="title">Partagez les résultats !</span>
+                </div>
+            </div>
+
+            <div class="row start">
+                <div class="col-md-12 text-center">
+                    <a href="{{ path('survey_create_general') }}" class="btn">Créer mon sondage !</a>
                 </div>
             </div>
         </div>

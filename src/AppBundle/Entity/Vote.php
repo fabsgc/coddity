@@ -48,6 +48,13 @@ class Vote
     private $participant;
 
     /**
+     * @var Survey
+     * @ORM\ManyToOne(targetEntity="Survey")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    private $survey;
+
+    /**
      * Subscription constructor.
      */
     public function __construct() {
@@ -123,6 +130,20 @@ class Vote
      */
     public function setParticipant(Participant $participant) {
         $this->participant = $participant;
+    }
+
+    /**
+     * @return Survey
+     */
+    public function getSurvey(): Survey {
+        return $this->survey;
+    }
+
+    /**
+     * @param Survey $survey
+     */
+    public function setSurvey(Survey $survey) {
+        $this->survey = $survey;
     }
 }
 

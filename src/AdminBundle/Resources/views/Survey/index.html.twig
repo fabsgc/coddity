@@ -3,5 +3,87 @@
 {% set title = 'Liste des sondages' %}
 
 {% block content %}
+    <table width="100%" class="table table-striped table-bordered table-hover" id="datatable-survey">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Nom</th>
+            <th>Créateur</th>
+            <th>Type</th>
+            <th>Multiple</th>
+            <th>Ouvert</th>
+            <th>Gagnant</th>
+            <th>Création</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for survey in surveys %}
+            <tr id="survey-{{ survey.id }}">
+                <td>{{ survey.id }}</td>
+                <td>
+                    <a href="{{ path('admin_survey_see', { 'survey': survey.id }) }}">
+                        {{ survey.name }}
+                    </a>
+                </td>
+                <td>{{ survey.user.username }}</td>
+                <td>
+                    {% if survey.getType() == 'CHOICE' %}
+                        Choix
+                    {% else %}
+                        Dates
+                    {% endif %}
+                </td>
+                <td>
+                    {% if survey.isMultiple() %}
+                        Oui
+                    {% else %}
+                        Non
+                    {% endif %}
+                </td>
+                <td>
+                    {% if survey.isOpened() %}
+                        Oui
+                    {% else %}
+                        Non
+                    {% endif %}
+                </td>
+                <td>
+                    {% if survey.winner != null %}
+                        {{ survey.winner.description|length > 50 ? survey.winner.description|slice(0, 50) ~ '...' : survey.winner.description }}
+                    {% else %}
+                        Aucun
+                    {% endif %}
+                </td>
+                <td>
+                    {{  survey.createdAt | date_fr }}
+                </td>
+                <td>
+                    <a title="Editer" href="{{ path('admin_survey_edit', { 'survey': survey.id }) }}">
+                        <button type="button" class="btn btn-info btn-circle"><i class="fa fa-pencil"></i></button>
+                    </a>
+                    <a href="{{ path('admin_survey_delete', { 'id': survey.id }) }}">
+                        <button type="button" class="btn btn-danger btn-circle"><i class="fa fa-trash"></i></button>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
+    <script src="{{ asset('admin/dist/js/confirm-bootstrap.js') }}"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            var table = $('#datatable').DataTable({
+                language: {
+                    url: "{{ asset('admin/vendor/datatables-plugins/French.json') }}"
+                },
+                responsive: true,
+                paging: false,
+                aaSorting: []
+            });
+
+        });
+    </script>
 {% endblock content %}

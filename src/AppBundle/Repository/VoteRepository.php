@@ -2,6 +2,9 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\Choice;
+use AppBundle\Entity\Survey;
+
 /**
  * SubscriptionRepository
  *
@@ -10,5 +13,30 @@ namespace AppBundle\Repository;
  */
 class VoteRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findBySurvey(Survey $survey) {
+        return $this->createQueryBuilder('v')
+            ->where('v.survey = :s')
+            ->setParameter('s', $survey)
+            ->getQuery()->getResult();
+    }
 
+    public function countBySurvey(Survey $survey) {
+        return $this->createQueryBuilder('v')
+            ->select('count(v.id)')
+            ->where('v.survey = :s')
+            ->setParameter('s', $survey)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function countBySurveyAndChoice(Survey $survey, Choice $choice) {
+        return $this->createQueryBuilder('v')
+            ->select('count(v.id)')
+            ->where('v.survey = :s')
+            ->andWhere('v.choice = :c')
+            ->setParameter('s', $survey)
+            ->setParameter('x', $choice)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }

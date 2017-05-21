@@ -3,7 +3,7 @@ h1.description {
   font-weight: bold;
   font-size: 45px;
   margin-top: 25px;
-  margin-bottom: 0;
+  margin-bottom: 10px;
 }
 
 h3.sub-description {
@@ -27,6 +27,10 @@ h3.sub-description {
     font-size: 22px !important;
     margin: 15px auto 40px auto;
   }
+}
+
+.start {
+  margin-bottom: 20px;
 }
 
 @media (min-width: $desktop-width) {

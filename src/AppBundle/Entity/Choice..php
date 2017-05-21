@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Choice
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="AppBundle\Repository\Choice")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ChoiceRepository")
  */
 class Choice
 {
@@ -31,7 +31,7 @@ class Choice
      * @var int
      * @ORM\Column(type="integer")
      */
-    private $order;
+    private $ordering;
 
     /**
      * @var \DateTime
@@ -91,15 +91,15 @@ class Choice
     /**
      * @return int
      */
-    public function getOrder(): int {
-        return $this->order;
+    public function getOrdering(): int {
+        return $this->ordering;
     }
 
     /**
-     * @param int $order
+     * @param int $ordering
      */
-    public function setOrder(int $order) {
-        $this->order = $order;
+    public function setOrdering(int $ordering) {
+        $this->ordering = $ordering;
     }
 
     /**

@@ -2,6 +2,9 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\Participant;
+use AppBundle\Entity\Survey;
+
 /**
  * SubscriptionRepository
  *
@@ -10,5 +13,20 @@ namespace AppBundle\Repository;
  */
 class ParticipantRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findBySurvey(Survey $survey) {
+        return $this->createQueryBuilder('p')
+            ->where('p.survey = :s')
+            ->setParameter('s', $survey)
+            ->getQuery()->getResult();
+    }
 
+    public function findBySurveyAndParticipant(Survey $survey, Participant $participant) {
+        return $this->createQueryBuilder('p')
+            ->where('p.survey = :s')
+            ->andWhere('p.participant = :p2')
+            ->setParameter('s', $survey)
+            ->setParameter('p2', $participant)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }

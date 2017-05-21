@@ -1,0 +1,232 @@
+{% extends "AdminBundle::layout.html.twig" %}
+
+{% set title = survey.name %}
+
+{% block content %}
+    <table width="100%" class="table table-striped table-bordered table-hover" id="datatable">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Nom</th>
+            <th>Créateur</th>
+            <th>Type</th>
+            <th>Multiple</th>
+            <th>Ouvert</th>
+            <th>Gagnant</th>
+            <th>Création</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr id="survey-{{ survey.id }}">
+                <td>{{ survey.id }}</td>
+                <td>
+                    <a href="{{ path('admin_survey_see', { 'survey': survey.id }) }}">
+                        {{ survey.name }}
+                    </a>
+                </td>
+                <td>{{ survey.user.username }}</td>
+                <td>
+                    {% if survey.getType() == 'CHOICE' %}
+                        Choix
+                    {% else %}
+                        Dates
+                    {% endif %}
+                </td>
+                <td>
+                    {% if survey.isMultiple() %}
+                        Oui
+                    {% else %}
+                        Non
+                    {% endif %}
+                </td>
+                <td>
+                    {% if survey.isOpened() %}
+                        Oui
+                    {% else %}
+                        Non
+                    {% endif %}
+                </td>
+                <td>
+                    {% if survey.winner != null %}
+                        {{ survey.winner.description|length > 50 ? survey.winner.description|slice(0, 50) ~ '...' : survey.winner.description }}
+                    {% else %}
+                        Aucun
+                    {% endif %}
+                </td>
+                <td>{{  survey.createdAt | date_fr }}</td>
+                <td>
+                    <a title="Editer" href="{{ path('admin_survey_edit', { 'survey': survey.id }) }}">
+                        <button type="button" class="btn btn-info btn-circle"><i class="fa fa-pencil"></i></button>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Choix</h3>
+    <table width="100%" class="table table-striped table-bordered table-hover" id="datatable-choices">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Description</th>
+            <th>Ordre</th>
+            <th>Création</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for choice in choices %}
+            <tr id="choice-{{ choice.id }}">
+                <td>{{ choice.id }}</td>
+                <td>{{ choice.description|length > 50 ? choice.description|slice(0, 50) ~ '...' : choice.description }}</td>
+                <td>{{ choice.ordering }}</td>
+                <td>{{ choice.createdAt | date_fr }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <h3>Participants</h3>
+    <table width="100%" class="table table-striped table-bordered table-hover" id="datatable-participants">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Utilisateur</th>
+            <th>Email</th>
+            <th>Token</th>
+            <th>Création</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for participant in participants %}
+            <tr id="participant-{{ participant.id }}">
+                <td>{{ participant.id }}</td>
+                <td>
+                    {% if participant.user != null %}
+                        {{ participant.user.username }}
+                    {% else %}
+                        Pas inscrit
+                    {% endif %}
+                </td>
+                <td>
+                    {% if participant.user == null %}
+                        {{ participant.email }}
+                    {% else %}
+                        {{ participant.user.email }}
+                    {% endif %}
+                </td>
+                <td>{{ participant.token }}</td>
+                <td>{{ participant.createdAt | date_fr }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <h3>Votes</h3>
+    <table width="100%" class="table table-striped table-bordered table-hover" id="datatable-votes">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Participant</th>
+            <th>Choix</th>
+            <th>Création</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for vote in votes %}
+            <tr id="vote-{{ vote.id }}">
+                <td>{{ vote.id }}</td>
+                <td>
+                    {% if vote.participant.user != null %}
+                        {{ vote.participant.user.username }}
+                    {% else %}
+                        {{ vote.participant.email }}
+                    {% endif %}
+                </td>
+                <td>{{ vote.choice.description|length > 50 ? vote.choice.description|slice(0, 50) ~ '...' : vote.choice.description }}</td>
+                <td>{{ vote.createdAt | date_fr }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <h3>Résultats</h3>
+    <table width="100%" class="table table-striped table-bordered table-hover" id="datatable-results">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Choix</th>
+            <th>Pourcentage</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for result in results %}
+            <tr id="user-{{ result.id }}">
+                <td>{{ result.id }}</td>
+                <td>{{ result.choice.description|length > 50 ? result.choice.description|slice(0, 50) ~ '...' : result.choice.description }}</td>
+                <td>{{ result.value }} %</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <script src="{{ asset('admin/dist/js/confirm-bootstrap.js') }}"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $('#datatable').DataTable({
+                language: {
+                    url: "{{ asset('admin/vendor/datatables-plugins/French.json') }}"
+                },
+                responsive: true,
+                paging: false,
+                aaSorting: []
+            });
+
+            $('#datatable-survey').DataTable({
+                language: {
+                    url: "{{ asset('admin/vendor/datatables-plugins/French.json') }}"
+                },
+                responsive: true,
+                paging: false,
+                aaSorting: []
+            });
+
+            $('#datatable-choices').DataTable({
+                language: {
+                    url: "{{ asset('admin/vendor/datatables-plugins/French.json') }}"
+                },
+                responsive: true,
+                paging: false,
+                aaSorting: []
+            });
+
+            $('#datatable-participants').DataTable({
+                language: {
+                    url: "{{ asset('admin/vendor/datatables-plugins/French.json') }}"
+                },
+                responsive: true,
+                paging: false,
+                aaSorting: []
+            });
+
+            $('#datatable-votes').DataTable({
+                language: {
+                    url: "{{ asset('admin/vendor/datatables-plugins/French.json') }}"
+                },
+                responsive: true,
+                paging: false,
+                aaSorting: []
+            });
+
+            $('#datatable-results').DataTable({
+                language: {
+                    url: "{{ asset('admin/vendor/datatables-plugins/French.json') }}"
+                },
+                responsive: true,
+                paging: false,
+                aaSorting: []
+            });
+        });
+    </script>
+{% endblock content %}

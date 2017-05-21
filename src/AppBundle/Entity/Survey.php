@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use AppBundle\Util\Now;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Survey
@@ -13,19 +14,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Survey
 {
-    /**
-     * @return User
-     */
-    public function getUser(): User {
-        return $this->user;
-    }
-
-    /**
-     * @param User $user
-     */
-    public function setUser(User $user) {
-        $this->user = $user;
-    }
     /**
      * @var int
      * @ORM\Column(name="id", type="integer")
@@ -37,12 +25,14 @@ class Survey
     /**
      * @var string
      * @ORM\Column(type="string", length=128)
+     * @Assert\Length(min=3, max=64)
      */
-    private $name = 'CHOICE';
+    private $name;
 
     /**
      * @var string
      * @ORM\Column(type="text")
+     * @Assert\Length(min=3, max=64)
      */
     private $description;
 
@@ -52,14 +42,28 @@ class Survey
      *   CHOICE
      *   DATE
      * @ORM\Column(type="string", length=55)
+     * @Assert\Choice({"CHOICE", "DATE"})
      */
     private $type = 'CHOICE';
 
     /**
      * @var boolean
-     * @ORM\Column(type="boolean", length=55)
+     * @ORM\Column(type="boolean")
+     */
+    private $multiple = true;
+
+    /**
+     * @var boolean
+     * @ORM\Column(type="boolean")
      */
     private $opened = true;
+
+    /**
+     * @var Choice
+     * @ORM\ManyToOne(targetEntity="Choice")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    private $winner;
 
     /**
      * @var \DateTime
@@ -147,6 +151,20 @@ class Survey
     /**
      * @return bool
      */
+    public function isMultiple(): bool {
+        return $this->multiple;
+    }
+
+    /**
+     * @param bool $multiple
+     */
+    public function setMultiple(bool $multiple) {
+        $this->multiple = $multiple;
+    }
+
+    /**
+     * @return bool
+     */
     public function isOpened(): bool {
         return $this->opened;
     }
@@ -156,6 +174,20 @@ class Survey
      */
     public function setOpened(bool $opened) {
         $this->opened = $opened;
+    }
+
+    /**
+     * @return Choice
+     */
+    public function getWinner() {
+        return $this->winner;
+    }
+
+    /**
+     * @param Choice $winner
+     */
+    public function setWinner(Choice $winner) {
+        $this->winner = $winner;
     }
 
     /**
@@ -184,6 +216,20 @@ class Survey
      */
     public function setUpdatedAt(\DateTime $updatedAt) {
         $this->updatedAt = $updatedAt;
+    }
+
+    /**
+     * @return User
+     */
+    public function getUser(): User {
+        return $this->user;
+    }
+
+    /**
+     * @param User $user
+     */
+    public function setUser(User $user) {
+        $this->user = $user;
     }
 }
 

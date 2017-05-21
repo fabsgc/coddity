@@ -3,14 +3,9 @@
 namespace AdminBundle\Controller;
 
 use AppBundle\Entity\User;
-use AppBundle\Repository\UserRepository;
 use AppBundle\Util\Now;
 use FOS\UserBundle\Doctrine\UserManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -32,9 +27,6 @@ class UserController extends Controller
      */
     public function listAction(Request $request)
     {
-        /**
-         * @var $userRepo UserRepository
-         */
         $users = $this->getDoctrine()->getRepository('AppBundle:User')->findAll();
 
         return $this->render('AdminBundle:User:index.html.twig', array(
@@ -55,24 +47,12 @@ class UserController extends Controller
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid())  {
-            if($form->get("admin")->getData()) {
-                $user->addRole('ROLE_ADMIN');
-            }
-            else {
-                $user->removeRole('ROLE_ADMIN');
-            }
-
             /**
              * @var $userManager UserManager
              */
             $userManager = $this->get('fos_user.user_manager');
             $userManager->updateUser($user);
             $this->addFlash('success', 'Modifications enregistrées');
-        }
-        else {
-            if($user->hasRole('ROLE_ADMIN')) {
-                $form->get("admin")->setData(true);
-            }
         }
 
         return $this->render('AdminBundle:User:edit.html.twig', array(
@@ -94,13 +74,6 @@ class UserController extends Controller
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            if($form->get("admin")->getData()) {
-                $user->addRole('ROLE_ADMIN');
-            }
-            else {
-                $user->removeRole('ROLE_ADMIN');
-            }
-
             $user->setRegistrationDate(Now::now());
 
             /**

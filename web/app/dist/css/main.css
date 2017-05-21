@@ -455,7 +455,7 @@ textarea.form-control {
 }
 /* line 115, ../sass/_navbar.scss */
 .navbar-pro .navbar-nav .dropdown-menu {
-  margin-top: 3px;
+  margin-top: 1px;
   background-color: #2980b9;
 }
 /* line 119, ../sass/_navbar.scss */
@@ -568,7 +568,7 @@ h1.description {
   font-weight: bold;
   font-size: 45px;
   margin-top: 25px;
-  margin-bottom: 0;
+  margin-bottom: 10px;
 }
 
 /* line 9, ../sass/_home.scss */
@@ -596,19 +596,24 @@ h3.sub-description {
   margin: 15px auto 40px auto;
 }
 
+/* line 32, ../sass/_home.scss */
+.start {
+  margin-bottom: 20px;
+}
+
 @media (min-width: 768px) {
-  /* line 33, ../sass/_home.scss */
+  /* line 37, ../sass/_home.scss */
   .home {
     margin-top: 40px;
   }
 }
 @media (max-width: 767px) {
-  /* line 39, ../sass/_home.scss */
+  /* line 43, ../sass/_home.scss */
   .home {
     margin-top: 20px;
   }
 }
-/* line 44, ../sass/_home.scss */
+/* line 48, ../sass/_home.scss */
 #how_it_works {
   min-height: 500px;
   background-color: #2980b9;
@@ -617,17 +622,17 @@ h3.sub-description {
   border-radius: 10px !important;
   height: 500px;
 }
-/* line 52, ../sass/_home.scss */
+/* line 56, ../sass/_home.scss */
 #how_it_works .col-md-4 {
   margin-top: 25px;
 }
-/* line 56, ../sass/_home.scss */
+/* line 60, ../sass/_home.scss */
 #how_it_works img {
   margin-left: 50px;
   border-radius: 50% !important;
   width: 150px !important;
 }
-/* line 62, ../sass/_home.scss */
+/* line 66, ../sass/_home.scss */
 #how_it_works span {
   display: block !important;
 }
@@ -1372,5 +1377,29 @@ form #professional_pictureUpload {
 }
 /* line 140, ../sass/_edit_profile.scss */
 #professional_educations .form-group div {
+  display: none;
+}
+
+/* line 2, ../sass/_survey.scss */
+#survey_choices_choice_choices input[type="text"], #survey_choices_date_choices input[type="text"] {
+  width: 80%;
+  display: inline-block;
+}
+/* line 7, ../sass/_survey.scss */
+#survey_choices_choice_choices a, #survey_choices_date_choices a {
+  float: right;
+  display: inline-block;
+  margin-top: 0 !important;
+  width: 18%;
+}
+/* line 13, ../sass/_survey.scss */
+#survey_choices_choice_choices a button, #survey_choices_date_choices a button {
+  margin-top: 0 !important;
+  width: 100%;
+  height: 40px;
+  line-height: 25px;
+}
+/* line 21, ../sass/_survey.scss */
+#survey_choices_choice_choices .form-group:last-child, #survey_choices_date_choices .form-group:last-child {
   display: none;
 }
