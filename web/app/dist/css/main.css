@@ -1381,25 +1381,25 @@ form #professional_pictureUpload {
 }
 
 /* line 2, ../sass/_survey.scss */
-#survey_choices_choice_choices input[type="text"], #survey_choices_date_choices input[type="text"] {
+#survey_choices_choice_choices input[type="text"], #survey_choices_date_choices input[type="text"], #survey_participants_participants input[type="text"] {
   width: 80%;
   display: inline-block;
 }
 /* line 7, ../sass/_survey.scss */
-#survey_choices_choice_choices a, #survey_choices_date_choices a {
+#survey_choices_choice_choices a, #survey_choices_date_choices a, #survey_participants_participants a {
   float: right;
   display: inline-block;
   margin-top: 0 !important;
   width: 18%;
 }
 /* line 13, ../sass/_survey.scss */
-#survey_choices_choice_choices a button, #survey_choices_date_choices a button {
+#survey_choices_choice_choices a button, #survey_choices_date_choices a button, #survey_participants_participants a button {
   margin-top: 0 !important;
   width: 100%;
   height: 40px;
   line-height: 25px;
 }
 /* line 21, ../sass/_survey.scss */
-#survey_choices_choice_choices .form-group:last-child, #survey_choices_date_choices .form-group:last-child {
+#survey_choices_choice_choices .form-group:last-child, #survey_choices_date_choices .form-group:last-child, #survey_participants_participants .form-group:last-child {
   display: none;
 }

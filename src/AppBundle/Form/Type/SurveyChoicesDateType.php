@@ -16,10 +16,10 @@ class SurveyChoicesDateType extends AbstractType
         $builder
             ->add('choices', CollectionType::class, array(
                 'label' => false,
-                'entry_type' => DateType::class,
+                'entry_type' => TextType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
-                'delete_empty' => false,
+                'delete_empty' => true,
                 'required' => false,
                 'attr' => array(
                     'class' => 'with_default',
@@ -32,10 +32,6 @@ class SurveyChoicesDateType extends AbstractType
                         'placeholder' => 'Date'
                     ]
                 ),
-            ))
-            ->add('submit', SubmitType::class, array(
-                'label' => 'Suivant',
-                'attr' => array('class' => 'btn-primary'),
             ))
             ->add('submit', SubmitType::class, array(
                 'label' => 'Suivant',

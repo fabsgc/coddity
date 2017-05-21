@@ -32,14 +32,14 @@ class SurveyParticipants
     /**
      * @return array
      */
-    public function getChoices(): array {
+    public function getParticipants(): array {
         return $this->participants;
     }
 
     /**
      * @param array $participants
      */
-    public function setEducations(array $participants) {
+    public function setParticipants(array $participants) {
         $this->participants = $participants;
     }
 }

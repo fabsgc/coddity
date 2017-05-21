@@ -20,7 +20,7 @@ class SurveyChoicesChoiceType extends AbstractType
                 'entry_type' => TextType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
-                'delete_empty' => false,
+                'delete_empty' => true,
                 'required' => true,
                 'attr' => array(
                     'class' => 'with_default',

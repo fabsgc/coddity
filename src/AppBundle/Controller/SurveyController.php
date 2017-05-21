@@ -5,9 +5,11 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Survey;
 use AppBundle\Entity\SurveyChoices;
 use AppBundle\Entity\SurveyGeneral;
+use AppBundle\Entity\SurveyParticipants;
 use AppBundle\Form\Type\SurveyChoicesChoiceType;
 use AppBundle\Form\Type\SurveyChoicesDateType;
 use AppBundle\Form\Type\SurveyGeneralType;
+use AppBundle\Form\Type\SurveyParticipantsType;
 use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -139,8 +141,7 @@ class SurveyController extends Controller
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                $session->set('surveyGeneral', $surveyGeneral);
-
+                $session->set('surveyChoices', $surveyChoices);
                 return $this->redirectToRoute('survey_create_participants');
             }
             else {
@@ -164,7 +165,36 @@ class SurveyController extends Controller
      */
     public function createSurveyParticipants(Request $request)
     {
-        return $this->render('AppBundle:Survey:createSurveyParticipants.html.twig', []);
+        /** @var Session\Session $session */
+        $session = $this->get("session");
+
+        if ($session->has('surveyParticipants')) {
+            $surveyParticipants = $session->get('surveyParticipants');
+        }
+        else {
+            $surveyParticipants = new SurveyParticipants();
+        }
+
+        if ($session->has('surveyGeneral')) {
+            $form = $this->createForm(SurveyParticipantsType::class, $surveyParticipants);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                var_dump($surveyParticipants->getParticipants());
+
+                //return $this->redirectToRoute('survey_create_participants');
+            }
+            else {
+                return $this->render('AppBundle:Survey:createSurveyParticipants.html.twig', [
+                    'form' => $form->createView(),
+                    'csrf_token' => $this->getCsrfToken()
+                ]);
+            }
+        }
+        else {
+            $this->addFlash('danger', 'Vous devez valider les étapes précédentes du formulaire.');
+            return $this->redirectToRoute('survey_create_general');
+        }
     }
 
     /**
