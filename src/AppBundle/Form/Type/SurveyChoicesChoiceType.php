@@ -31,7 +31,8 @@ class SurveyChoicesChoiceType extends AbstractType
                     'label' => false,
                     'attr' => [
                         'placeholder' => 'Choix'
-                    ]
+                    ],
+                    'required' => false
                 ),
             ))
             ->add('submit', SubmitType::class, array(

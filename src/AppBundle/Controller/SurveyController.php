@@ -120,12 +120,14 @@ class SurveyController extends Controller
         /** @var Session\Session $session */
         $session = $this->get("session");
 
-        if ($session->has('surveyChoices')) {
+        /*if ($session->has('surveyChoices')) {
             $surveyChoices = $session->get('surveyChoices');
         }
         else {
             $surveyChoices = new surveyChoices();
-        }
+        }*/
+
+        $surveyChoices = new surveyChoices();
 
         if ($session->has('surveyGeneral')) {
             /** @var SurveyGeneral $surveyGeneral */
@@ -168,12 +170,14 @@ class SurveyController extends Controller
         /** @var Session\Session $session */
         $session = $this->get("session");
 
-        if ($session->has('surveyParticipants')) {
+        /*if ($session->has('surveyParticipants')) {
             $surveyParticipants = $session->get('surveyParticipants');
         }
         else {
             $surveyParticipants = new SurveyParticipants();
-        }
+        }*/
+
+        $surveyParticipants = new SurveyParticipants();
 
         if ($session->has('surveyGeneral')) {
             $form = $this->createForm(SurveyParticipantsType::class, $surveyParticipants);

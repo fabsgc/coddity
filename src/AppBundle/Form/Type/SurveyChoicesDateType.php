@@ -30,7 +30,8 @@ class SurveyChoicesDateType extends AbstractType
                     'label' => false,
                     'attr' => [
                         'placeholder' => 'Date'
-                    ]
+                    ],
+                    'required' => false
                 ),
             ))
             ->add('submit', SubmitType::class, array(
