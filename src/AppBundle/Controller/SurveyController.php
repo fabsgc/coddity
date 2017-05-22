@@ -2,15 +2,20 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Choice;
+use AppBundle\Entity\Participant;
 use AppBundle\Entity\Survey;
 use AppBundle\Entity\SurveyChoices;
 use AppBundle\Entity\SurveyGeneral;
 use AppBundle\Entity\SurveyParticipants;
+use AppBundle\Entity\User;
 use AppBundle\Form\Type\SurveyChoicesChoiceType;
 use AppBundle\Form\Type\SurveyChoicesDateType;
 use AppBundle\Form\Type\SurveyGeneralType;
 use AppBundle\Form\Type\SurveyParticipantsType;
+use AppBundle\Service\Mailer;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Mapping\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
@@ -18,6 +23,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Output\NullOutput;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -54,8 +60,38 @@ class SurveyController extends Controller
     }
 
     /**
+     * @Route("/answer/{survey}/{token}", name="survey_answer")
+     * @Method({"GET", "POST"})
+     * @ParamConverter("survey", class="AppBundle:Survey")
+     * @param Request $request
+     * @param Survey $survey
+     * @param string $token
+     * @return Response
+     */
+    public function answerSurvey(Request $request, Survey $survey, string $token)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $participant = $em->getRepository('AppBundle:Participant')->findBySurveyAndToken($survey, $token);
+
+        if($participant instanceof Participant) {
+            if($participant->isHasVoted() == false) {
+                return $this->render('AppBundle:Survey:answer.html.twig', [
+                    'survey' => $survey
+                ]);
+            }
+            else {
+                $this->addFlash('error', 'Vous avez déjà voté ici');
+            }
+        }
+        else {
+            $this->addFlash('error', 'Vous ne pouvez pas voter ici');
+            return $this->redirectToRoute('home');
+        }
+    }
+
+    /**
      * @Route("/delete/{id}", name="survey_delete")
-     * @ParamConverter("support", class="AppBundle:Support")
+     * @ParamConverter("survey", class="AppBundle:Support")
      * @Method({"GET"})
      * @param Request $request
      * @param Survey $survey
@@ -143,8 +179,37 @@ class SurveyController extends Controller
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                //Vérifier le nombre de choix
-                //Vérifier que les choix sont différents
+                //Check number of choices
+                //Check that they are different
+
+                $choices = $surveyChoices->getChoices();
+                $choicesTrim = [];
+
+                foreach ($choices as $choice1) {
+                    $countEqualChoice = 0;
+
+                    foreach ($choices as $choice2) {
+                        if($choice1 == $choice2) {
+                            $countEqualChoice++;
+                        }
+                    }
+
+                    if($countEqualChoice == 1 && trim($choice1) != '') {
+                        array_push($choicesTrim, $choice1);
+                    }
+                }
+
+                if (count($choicesTrim) < 2) {
+                    $form->addError(new FormError('Il doit y avoir au moins deux choix différents'));
+
+                    return $this->render('AppBundle:Survey:createSurveyChoices.html.twig', [
+                        'form' => $form->createView(),
+                        'csrf_token' => $this->getCsrfToken()
+                    ]);
+                }
+                else {
+                    $surveyChoices->setChoices($choicesTrim);
+                }
 
                 $session->set('surveyChoices', $surveyChoices);
                 return $this->redirectToRoute('survey_create_participants');
@@ -173,6 +238,12 @@ class SurveyController extends Controller
         /** @var Session\Session $session */
         $session = $this->get("session");
 
+        /** @var EntityManager $em */
+        $em = $this->container->get('doctrine')->getManager();
+
+        /** @var Mailer $mailer */
+        $mailer = $this->container->get('app.mailer');
+
         /*if ($session->has('surveyParticipants')) {
             $surveyParticipants = $session->get('surveyParticipants');
         }
@@ -187,12 +258,126 @@ class SurveyController extends Controller
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                //Vérifier le nombre de participants
-                //Vérifier que les participants sont tous différents
-                //Vérifier que les adresses mails ou nom d'utilisateur existent tous
+                //Check number of participants
+                //Check if participants are different
 
-                $surGeneral = $session->get('surveyGeneral');
+                $participants = $surveyParticipants->getParticipants();
+                $participantsTrim = [];
+                $participantsExistTrim = [];
+
+                foreach ($participants as $participant1) {
+                    $countEqualParticipant = 0;
+
+                    foreach ($participants as $participant2) {
+                        if($participant1 == $participant2) {
+                            $countEqualParticipant++;
+                        }
+                    }
+
+                    if($countEqualParticipant == 1 && trim($participant1) != '') {
+                        array_push($participantsTrim, $participant1);
+                    }
+                }
+
+                if (count($participantsTrim) < 1) {
+                    $form->addError(new FormError('Il doit y avoir au moins un participant'));
+
+                    return $this->render('AppBundle:Survey:createSurveyParticipants.html.twig', [
+                        'form' => $form->createView(),
+                        'csrf_token' => $this->getCsrfToken()
+                    ]);
+                }
+
+                //Check if email adress or users exist and if they are finally at least one existing participant
+
+                foreach ($participantsTrim as $participant) {
+                    /** @var User $participantEntity */
+                    $user = $em->getRepository('AppBundle:User')->findByEmailOrUsername($participant);
+
+                    if($user instanceof User && $user != $this->getUser()) {
+                        array_push($participantsExistTrim, $user);
+                    }
+                    else {
+                        if(filter_var($participant, FILTER_VALIDATE_EMAIL)) {
+                            array_push($participantsExistTrim, $participant);
+                        }
+                    }
+                }
+
+                if (count($participantsExistTrim) < 1) {
+                    $form->addError(new FormError('Il doit y avoir au moins un participant'));
+
+                    return $this->render('AppBundle:Survey:createSurveyParticipants.html.twig', [
+                        'form' => $form->createView(),
+                        'csrf_token' => $this->getCsrfToken()
+                    ]);
+                }
+
+                /** @var SurveyGeneral $surveyGeneral */
+                $surveyGeneral = $session->get('surveyGeneral');
+                /** @var SurveyChoices $surveyChoices */
                 $surveyChoices = $session->get('surveyChoices');
+
+                //Save survey
+                $survey = new Survey();
+                $survey->setName($surveyGeneral->getName());
+                $survey->setDescription($surveyGeneral->getDescription());
+                $survey->setType($surveyGeneral->getType());
+                $survey->setType($surveyGeneral->getType());
+                $survey->setMultiple($surveyGeneral->isMultiple());
+                $em->persist($survey);
+                $em->flush();
+
+                $order = 0;
+
+                //Save choices
+                foreach ($surveyChoices->getChoices() as $surveyChoice) {
+                    $choice = new Choice();
+                    $choice->setDescription($surveyChoice);
+                    $choice->setSurvey($survey);
+                    $choice->setOrdering($order);
+                    $em->persist($choice);
+                    $em->flush();
+
+                    $order++;
+                }
+
+                //Save participants + send email
+                foreach ($participantsExistTrim as $surveyParticipant) {
+                    $participant = new Participant();
+                    $participant->setHasVoted(false);
+                    $participant->setSurvey($survey);
+                    $participant->setToken(uniqid('', true));
+
+                    if($surveyParticipant instanceof User) {
+                        $participant->setUser($surveyParticipant);
+
+                        $mailer->sendToUser($surveyParticipant, 'Participez à un nouveau sondage !', 'Survey/new_survey', [
+                            'token' => $participant->getToken(),
+                            'survey' => $survey
+                        ]);
+                    }
+                    else {
+                        $participant->setEmail($surveyParticipant);
+
+                        $mailer->sendToEmail($surveyParticipant, 'Participez à un nouveau sondage !', 'Survey/new_survey', [
+                            'token' => $participant->getToken(),
+                            'survey' => $survey
+                        ]);
+                    }
+
+                    $em->persist($participant);
+                    $em->flush();
+                }
+
+                //We add the creator to the survey
+                $participant = new Participant();
+                $participant->setHasVoted(false);
+                $participant->setSurvey($survey);
+                $participant->setToken(uniqid('', true));
+                $participant->setUser($this->getUser());
+                $em->persist($participant);
+                $em->flush();
 
                 var_dump($surveyParticipants->getParticipants());
 

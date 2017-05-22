@@ -15,7 +15,6 @@ class SurveyChoices
     /**
      * @var array
      * @ORM\Column(type="array")
-     * @Assert\Count(min = 2, minMessage = "Il doit y avoir au moins deux choix")
      * @Assert\All({
      *     @Assert\NotBlank
      * })

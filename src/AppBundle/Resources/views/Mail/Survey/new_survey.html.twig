@@ -1,0 +1,13 @@
+{% extends('AppBundle:Mail:layout.html.twig') %}
+
+{% block content %}
+    Bonjour,<br><br>
+
+    Tu viens d'être invité à participer à un nouveau sondage : "{{ survey.name }}"<br><br>
+
+    Pour répondre aux questions, il te suffit de suivre ce lien : <a href="{{ url('survey_answer', { 'survey': survey.id, 'token': token }) }}">répondre maintenant</a>
+
+    A bientôt !
+    L'équipe de Agreed
+
+{% endblock %}

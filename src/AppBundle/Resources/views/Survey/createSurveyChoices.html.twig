@@ -28,6 +28,7 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
+                    {{ form_errors(form) }}
                     {{ form_start(form) }}
                     {{ form_end(form) }}
                 </div>
@@ -36,8 +37,32 @@
     </div>
 
     <script type="application/javascript">
-        $( function() {
-            $( ".datepicker-merde" ).datepicker();
-        } );
+        $('#survey_choices_choice_submit, #survey_choices_date_submit').click(function(event) {
+            event.preventDefault();
+
+            var choicesTrim = [];
+            var choices = $('.choice-element');
+
+            choices.each(function(index1, element1) {
+                var countEqualChoice = 0;
+
+                choices.each(function(index2, element2) {
+                    if (element1.value === element2.value) {
+                        countEqualChoice++;
+                    }
+                });
+
+                if(countEqualChoice === 1 && element1.value.trim() !== '') {
+                    choicesTrim.push(element1);
+                }
+            });
+
+            if(choicesTrim.length < 2) {
+                alert('Il doit y avoir au moins 2 choix différents');
+            }
+            else {
+                $('form[name="survey_choices_choice"]').submit();
+            }
+        });
     </script>
 {% endblock %}

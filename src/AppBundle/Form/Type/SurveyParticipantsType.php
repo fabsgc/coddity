@@ -28,7 +28,8 @@ class SurveyParticipantsType extends AbstractType
                 'entry_options'  => array(
                     'label' => false,
                     'attr' => [
-                        'placeholder' => 'Adresse email ou nom d\'utilisateur'
+                        'placeholder' => 'Adresse email ou nom d\'utilisateur',
+                        'class' => 'participant-element'
                     ],
                     'required' => false
                 ),

@@ -20,12 +20,12 @@ class ParticipantRepository extends \Doctrine\ORM\EntityRepository
             ->getQuery()->getResult();
     }
 
-    public function findBySurveyAndParticipant(Survey $survey, Participant $participant) {
+    public function findBySurveyAndToken(Survey $survey, string $token) {
         return $this->createQueryBuilder('p')
             ->where('p.survey = :s')
-            ->andWhere('p.participant = :p2')
+            ->andWhere('p.token = :p2')
             ->setParameter('s', $survey)
-            ->setParameter('p2', $participant)
+            ->setParameter('p2', $token)
             ->getQuery()
             ->getOneOrNullResult();
     }

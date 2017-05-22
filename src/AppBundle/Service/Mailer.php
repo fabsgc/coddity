@@ -38,7 +38,7 @@ class Mailer
         $this->fromAlias = $fromAlias;
     }
 
-    public function send(User $dest, $subject, $template, $vars)
+    public function sendToUser(User $dest, $subject, $template, $vars)
     {
         $html =  $this->twig->render('@App/Mail/'.$template.'.html.twig', $vars);
         $txt = Html2Text::convert($html);
@@ -54,4 +54,19 @@ class Mailer
         $this->mailer->send($message);
     }
 
+    public function sendToEmail(string $dest, $subject, $template, $vars)
+    {
+        $html =  $this->twig->render('@App/Mail/'.$template.'.html.twig', $vars);
+        $txt = Html2Text::convert($html);
+        $to = $dest;
+
+        $message = \Swift_Message::newInstance()
+            ->setSubject($subject)
+            ->setFrom($this->from, $this->fromAlias)
+            ->setTo($to)
+            ->addPart($txt, 'text/plain')
+            ->setBody($html, 'text/html');
+
+        $this->mailer->send($message);
+    }
 }

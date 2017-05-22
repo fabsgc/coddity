@@ -29,7 +29,8 @@ class SurveyChoicesDateType extends AbstractType
                 'entry_options'  => [
                     'label' => false,
                     'attr' => [
-                        'placeholder' => 'Date'
+                        'placeholder' => 'Date',
+                        'class' => 'choice-element'
                     ],
                     'required' => false,
                     'widget' => 'single_text'

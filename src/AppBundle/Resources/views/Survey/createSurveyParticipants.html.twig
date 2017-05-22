@@ -28,6 +28,7 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
+                    {{ form_errors(form) }}
                     {{ form_start(form) }}
                     {{ form_end(form) }}
                 </div>
@@ -36,8 +37,32 @@
     </div>
 
     <script type="application/javascript">
-        $( function() {
-            $( ".datepicker-merde" ).datepicker();
-        } );
+        $('#survey_participants_submit').click(function(event) {
+            event.preventDefault();
+
+            var participantsTrim = [];
+            var participants = $('.participant-element');
+
+            participants.each(function(index1, element1) {
+                var countEqualParticipant = 0;
+
+                participants.each(function(index2, element2) {
+                    if (element1.value === element2.value) {
+                        countEqualParticipant++;
+                    }
+                });
+
+                if(countEqualParticipant === 1 && element1.value.trim() !== '') {
+                    participantsTrim.push(element1);
+                }
+            });
+
+            if(participantsTrim.length < 1) {
+                alert('Il doit y avoir au moins 1 participant');
+            }
+            else {
+                $('form[name="survey_participants"]').submit();
+            }
+        });
     </script>
 {% endblock %}

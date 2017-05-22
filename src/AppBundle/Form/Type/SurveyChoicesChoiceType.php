@@ -30,7 +30,8 @@ class SurveyChoicesChoiceType extends AbstractType
                 'entry_options'  => array(
                     'label' => false,
                     'attr' => [
-                        'placeholder' => 'Choix'
+                        'placeholder' => 'Choix',
+                        'class' => 'choice-element'
                     ],
                     'required' => false
                 ),

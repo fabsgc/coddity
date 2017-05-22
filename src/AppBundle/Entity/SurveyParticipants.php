@@ -15,7 +15,6 @@ class SurveyParticipants
     /**
      * @var array
      * @ORM\Column(type="array")
-     * @Assert\Count(min = 1, minMessage = "Il doit y avoir au moins 1 participant")
      * @Assert\All({
      *     @Assert\NotBlank,
      *     @Assert\Length(min = 3)
