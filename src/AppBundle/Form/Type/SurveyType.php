@@ -17,10 +17,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SurveyType extends AbstractType
 {
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
         $builder
             ->add('name', TextType::class, array(
                 'label' => 'Nom',

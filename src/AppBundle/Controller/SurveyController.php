@@ -143,6 +143,9 @@ class SurveyController extends Controller
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
+                //Vérifier le nombre de choix
+                //Vérifier que les choix sont différents
+
                 $session->set('surveyChoices', $surveyChoices);
                 return $this->redirectToRoute('survey_create_participants');
             }
@@ -179,11 +182,18 @@ class SurveyController extends Controller
 
         $surveyParticipants = new SurveyParticipants();
 
-        if ($session->has('surveyGeneral')) {
+        if ($session->has('surveyChoices')) {
             $form = $this->createForm(SurveyParticipantsType::class, $surveyParticipants);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
+                //Vérifier le nombre de participants
+                //Vérifier que les participants sont tous différents
+                //Vérifier que les adresses mails ou nom d'utilisateur existent tous
+
+                $surGeneral = $session->get('surveyGeneral');
+                $surveyChoices = $session->get('surveyChoices');
+
                 var_dump($surveyParticipants->getParticipants());
 
                 //return $this->redirectToRoute('survey_create_participants');
