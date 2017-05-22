@@ -16,5 +16,5 @@ parameters:
     editable.mailer_password:   ~
     editable.mailer_auth_mode: login
     editable.mailer_port: ~
-    editable.mailer_from: ~
-    editable.mailer_from_alias: ~
+    editable.mailer_from: contact@agreed.fr
+    editable.mailer_from_alias: contact@agreed.fr
