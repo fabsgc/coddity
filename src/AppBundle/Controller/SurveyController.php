@@ -54,7 +54,7 @@ class SurveyController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function editSurvey(Request $request)
+    public function editSurveyAction(Request $request)
     {
         return $this->render('AppBundle:Survey:index.html.twig', []);
     }
@@ -68,7 +68,7 @@ class SurveyController extends Controller
      * @param string $token
      * @return Response
      */
-    public function answerSurvey(Request $request, Survey $survey, string $token)
+    public function answerSurveyAction(Request $request, Survey $survey, string $token)
     {
         $em = $this->getDoctrine()->getManager();
         $participant = $em->getRepository('AppBundle:Participant')->findBySurveyAndToken($survey, $token);
@@ -118,7 +118,7 @@ class SurveyController extends Controller
 	 * @param Request $request
 	 * @return Response
 	 */
-	public function createSurveyGeneral(Request $request)
+	public function createSurveyGeneralAction(Request $request)
 	{
         /** @var Session\Session $session */
         $session = $this->get("session");
@@ -151,7 +151,7 @@ class SurveyController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function createSurveyChoices(Request $request)
+    public function createSurveyChoicesAction(Request $request)
     {
         /** @var Session\Session $session */
         $session = $this->get("session");
@@ -233,7 +233,7 @@ class SurveyController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function createSurveyParticipants(Request $request)
+    public function createSurveyParticipantsAction(Request $request)
     {
         /** @var Session\Session $session */
         $session = $this->get("session");
