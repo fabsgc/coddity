@@ -13,6 +13,9 @@ use AppBundle\Form\Type\SurveyChoicesChoiceType;
 use AppBundle\Form\Type\SurveyChoicesDateType;
 use AppBundle\Form\Type\SurveyGeneralType;
 use AppBundle\Form\Type\SurveyParticipantsType;
+use AppBundle\Repository\ChoiceRepository;
+use AppBundle\Repository\ParticipantRepository;
+use AppBundle\Repository\UserRepository;
 use AppBundle\Service\Mailer;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Entity;
@@ -23,6 +26,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Output\NullOutput;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,13 +38,13 @@ use Symfony\Component\HttpFoundation\Session;
 
 /**
  * @Route("/survey")
- * @Security("has_role('ROLE_USER')")
  */
 
 class SurveyController extends Controller
 {
 	/**
 	 * @Route("/", name="survey_home")
+     * @Security("has_role('ROLE_USER')")
 	 * @param Request $request
 	 * @return Response
 	 */
@@ -50,6 +55,7 @@ class SurveyController extends Controller
 
     /**
      * @Route("/edit", name="survey_edit")
+     * @Security("has_role('ROLE_USER')")
      * @Method({"GET", "POST"})
      * @param Request $request
      * @return Response
@@ -72,19 +78,37 @@ class SurveyController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $participant = $em->getRepository('AppBundle:Participant')->findBySurveyAndToken($survey, $token);
+        $choices = $em->getRepository('AppBundle:Choice')->findBySurvey($survey);
 
         if($participant instanceof Participant) {
-            if($participant->isHasVoted() == false) {
-                return $this->render('AppBundle:Survey:answer.html.twig', [
-                    'survey' => $survey
-                ]);
+            if($this->getUser() == null || $this->getUser() == $participant->getUser()) {
+                if($participant->isHasVoted() == false) {
+                    /** @var Form $form */
+                    $form = $this->createFormBuilder()->add('Envoyer', SubmitType::class)->getForm();
+                    $form->handleRequest($request);
+
+                    if ($form->isSubmitted() && $form->isValid()) {
+
+                    }
+
+                    return $this->render('AppBundle:Survey:answer.html.twig', [
+                        'survey' => $survey,
+                        'choices' => $choices,
+                        'form' => $form->createView()
+                    ]);
+                }
+                else {
+                    $this->addFlash('danger', 'Vous avez déjà voté ici');
+                    return $this->redirectToRoute('home');
+                }
             }
             else {
-                $this->addFlash('error', 'Vous avez déjà voté ici');
+                $this->addFlash('danger', 'Vous ne pouvez pas voter ici');
+                return $this->redirectToRoute('home');
             }
         }
         else {
-            $this->addFlash('error', 'Vous ne pouvez pas voter ici');
+            $this->addFlash('danger', 'Vous ne pouvez pas voter ici');
             return $this->redirectToRoute('home');
         }
     }
@@ -93,6 +117,7 @@ class SurveyController extends Controller
      * @Route("/delete/{id}", name="survey_delete")
      * @ParamConverter("survey", class="AppBundle:Support")
      * @Method({"GET"})
+     * @Security("has_role('ROLE_USER')")
      * @param Request $request
      * @param Survey $survey
      * @return Response
@@ -115,6 +140,7 @@ class SurveyController extends Controller
 	/**
 	 * @Route("/create/general", name="survey_create_general")
      * @Method({"GET", "POST"})
+     * @Security("has_role('ROLE_USER')")
 	 * @param Request $request
 	 * @return Response
 	 */
@@ -148,6 +174,7 @@ class SurveyController extends Controller
     /**
      * @Route("/create/choices", name="survey_create_choices")
      * @Method({"GET", "POST"})
+     * @Security("has_role('ROLE_USER')")
      * @param Request $request
      * @return Response
      */
@@ -230,6 +257,7 @@ class SurveyController extends Controller
     /**
      * @Route("/create/participants", name="survey_create_participants")
      * @Method({"GET", "POST"})
+     * @Security("has_role('ROLE_USER')")
      * @param Request $request
      * @return Response
      */
@@ -294,7 +322,7 @@ class SurveyController extends Controller
                     /** @var User $participantEntity */
                     $user = $em->getRepository('AppBundle:User')->findByEmailOrUsername($participant);
 
-                    if($user instanceof User && $user != $this->getUser()) {
+                    if($user instanceof User && $user != $this->getUser() && !in_array($user->getEmail(), $participantsTrim)) {
                         array_push($participantsExistTrim, $user);
                     }
                     else {
@@ -394,6 +422,35 @@ class SurveyController extends Controller
             $this->addFlash('danger', 'Vous devez valider les étapes précédentes du formulaire.');
             return $this->redirectToRoute('survey_create_general');
         }
+    }
+
+    /**
+     * @Route("/autocomplete/user", name="survey_autocomplete_user")
+     * @Method({"GET"})
+     * @Security("has_role('ROLE_USER')")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function autocompleteProfessionalAction(Request $request)
+    {
+        $data = array();
+        $term = trim(strip_tags($request->get('term')));
+
+        /** @var UserRepository $em */
+        $em = $this->getDoctrine()->getManager()->getRepository('AppBundle:User');
+        $users = $em->findUsersByNameOrEmail($term);
+
+        /** @var User $user */
+        foreach ($users as $user) {
+            if($user != $this->getUser()) {
+                array_push($data, ['key' => $user->getUsername(), "value" => $user->getUsername()]);
+            }
+        }
+
+        $response = new JsonResponse();
+        $response->setData($data);
+
+        return $response;
     }
 
     /**

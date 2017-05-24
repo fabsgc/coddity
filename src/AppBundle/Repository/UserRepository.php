@@ -53,4 +53,12 @@ class UserRepository extends EntityRepository
             ->getOneOrNullResult();
     }
 
+    public function findUsersByNameOrEmail($term) {
+        return $this->createQueryBuilder('u')
+            ->select('u')
+            ->where('(u.username LIKE :term OR u.email LIKE :term)')
+            ->setParameter('term', '%'.$term.'%')
+            ->getQuery()
+            ->getResult();
+    }
 }

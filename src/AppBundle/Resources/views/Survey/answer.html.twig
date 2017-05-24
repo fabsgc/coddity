@@ -14,7 +14,28 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
+                    {{ form_errors(form) }}
+                    {{ form_start(form) }}
 
+                    {% for choice in choices %}
+                        {% if survey.multiple %}
+                            <div class="form-group">
+                                <div class="checkbox abc-checkbox abc-checkbox-primary">
+                                    <input type="checkbox" class="styled" id="survey_choice_{{ choice.id }}" name="survey_choice[{{ choice.id }}]" value="{{ choice.id }}">
+                                    <label for="survey_choice_{{ choice.id }}">{{ choice.description }}</label>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="form-group">
+                                <div class="radio abc-radio abc-radio-primary">
+                                    <input type="radio" class="styled" id="survey_choice_{{ choice.id }}" name="survey_choice" value="{{ choice.id }}">
+                                    <label for="survey_choice_{{ choice.id }}">{{ choice.description }}</label>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+
+                    {{ form_end(form) }}
                 </div>
             </div>
         </div>

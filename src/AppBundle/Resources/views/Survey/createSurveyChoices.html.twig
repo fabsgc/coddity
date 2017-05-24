@@ -7,13 +7,11 @@
 {% form_theme form '@AppBundle/Resources/views/Form/fields.html.twig' %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('app/vendor/datepicker/datepicker.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/vendor/jquery-ui/jquery-ui.min.css') }}">
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
-    <script src="{{ asset('app/vendor/datepicker/datepicker.js') }}"></script>
     <script src="{{ asset('app/vendor/jquery-ui/jquery-ui.js') }}"></script>
     <script src="{{ asset('admin/dist/js/collection-form.js') }}"></script>
 {% endblock %}

@@ -19,9 +19,7 @@ class AppExtension extends \Twig_Extension
         return array(
             new \Twig_SimpleFilter('date_fr', array($this, 'dateFr')),
             new \Twig_SimpleFilter('date_fr_no_hours', array($this, 'dateFrNoHours')),
-            new \Twig_SimpleFilter('date_fr_short', array($this, 'dateFrShort')),
-            new \Twig_SimpleFilter('hasSubscription', array($this, 'hasSubscriptionFilter')),
-            new \Twig_SimpleFilter('offer_duration', array($this, 'offerDuration'))
+            new \Twig_SimpleFilter('date_fr_short', array($this, 'dateFrShort'))
         );
     }
 
