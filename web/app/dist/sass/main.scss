@@ -28,9 +28,6 @@ $dark-grey: #7b7c7c;
 
 @include font-face("Open Sans", font-files("OpenSans-Regular.ttf"));
 
-@include font-face("Bebas Neue", font-files("BebasNeue.otf"));
-@include font-face("Century Gothic", font-files("CenturyGothicRegular.ttf"));
-
 /* General */
 
 body {
@@ -301,8 +298,6 @@ textarea.form-control {
 @import "navbar";
 @import "home";
 @import "login";
-@import "profile";
-@import "settings";
 @import "sidebar";
 @import "footer";
 @import "background";

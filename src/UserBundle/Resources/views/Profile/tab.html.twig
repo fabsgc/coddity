@@ -1,0 +1,4 @@
+<div class="tab-panel">
+    <a href="{{ path('profile_edit_general') }}" class="width-50 tab-profile {% if app.request.attributes.get('_route') == 'profile_edit_general' %}active{% endif %}">Profil</a>
+    <a href="{{ path('profile_edit_parameters') }}" class="width-50 tab-parameters {% if app.request.attributes.get('_route') == 'profile_edit_parameters' %}active{% endif %}">Paramètres</a>
+</div>

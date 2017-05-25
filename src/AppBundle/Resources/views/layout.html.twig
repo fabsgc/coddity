@@ -61,6 +61,8 @@
                             </span>
                             <ul class="dropdown-menu">
                                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                    <li><a href="{{ path('profile_edit_general') }}"><i class="fa fa-pencil-square-o"></i> Editer mon profil</a></li>
+                                    <li role="separator" class="divider"></li>
                                     <li><a href="{{ path('survey_home') }}"><i class="fa fa-line-chart"></i> Mes sondages</a></li>
                                     <li role="separator" class="divider"></li>
                                     <li><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-sign-out"></i> Déconnexion</a></li>

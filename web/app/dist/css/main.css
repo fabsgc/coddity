@@ -7,66 +7,58 @@
   font-family: "Open Sans";
   src: url('/app/dist/fonts/OpenSans-Regular.ttf') format('truetype');
 }
-@font-face {
-  font-family: "Bebas Neue";
-  src: url('/app/dist/fonts/BebasNeue.otf') format('opentype');
-}
-@font-face {
-  font-family: "Century Gothic";
-  src: url('/app/dist/fonts/CenturyGothicRegular.ttf') format('truetype');
-}
 /* General */
-/* line 36, ../sass/main.scss */
+/* line 33, ../sass/main.scss */
 body {
   font-family: "Open Sans", sans-serif;
   font-size: 15px;
 }
 
-/* line 41, ../sass/main.scss */
+/* line 38, ../sass/main.scss */
 body.background-grey {
   background-color: #efebeb;
 }
 
-/* line 45, ../sass/main.scss */
+/* line 42, ../sass/main.scss */
 body, html {
   height: 100%;
 }
 
-/* line 49, ../sass/main.scss */
+/* line 46, ../sass/main.scss */
 #wrapper {
   min-height: 100%;
   position: relative;
 }
 
-/* line 54, ../sass/main.scss */
+/* line 51, ../sass/main.scss */
 a {
   color: #2980b9;
 }
-/* line 56, ../sass/main.scss */
+/* line 53, ../sass/main.scss */
 a:hover, a:focus {
   color: #2980b9;
 }
 
-/* line 62, ../sass/main.scss */
+/* line 59, ../sass/main.scss */
 a.link-white {
   color: white !important;
 }
 
-/* line 66, ../sass/main.scss */
+/* line 63, ../sass/main.scss */
 h1, h2, h3, h4, h5, h6 {
   font-family: "Open Sans", sans-serif;
   color: #2980b9 !important;
 }
 
 @media (max-width: 767px) {
-  /* line 72, ../sass/main.scss */
+  /* line 69, ../sass/main.scss */
   .container {
     padding-left: 0;
     padding-right: 0;
   }
 }
 /* ################### BACKGROUND-IMAGE ################### */
-/* line 80, ../sass/main.scss */
+/* line 77, ../sass/main.scss */
 .background-image {
   position: fixed;
   display: block;
@@ -82,12 +74,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ################### BUTTONS ################### */
-/* line 95, ../sass/main.scss */
+/* line 92, ../sass/main.scss */
 .btn-red {
   background-color: #2980b9;
   color: #ffffff;
 }
-/* line 98, ../sass/main.scss */
+/* line 95, ../sass/main.scss */
 .btn-red:hover, .btn-red:focus {
   background-color: #2980b9;
   color: #efebeb;
@@ -95,7 +87,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ################### FORMS ################### */
 /* input/select/textarea */
-/* line 109, ../sass/main.scss */
+/* line 106, ../sass/main.scss */
 .form-control {
   padding: 10px 12px;
   font-size: 14px;
@@ -113,14 +105,14 @@ h1, h2, h3, h4, h5, h6 {
   transition: none !important;
 }
 
-/* line 126, ../sass/main.scss */
+/* line 123, ../sass/main.scss */
 textarea.form-control {
   padding: 6px 12px !important;
   height: auto !important;
 }
 
 /* buttons */
-/* line 133, ../sass/main.scss */
+/* line 130, ../sass/main.scss */
 .btn {
   padding: 8px 14px;
   border: none !important;
@@ -133,26 +125,26 @@ textarea.form-control {
   transition-duration: 0.15s;
   font-size: 20px;
 }
-/* line 145, ../sass/main.scss */
+/* line 142, ../sass/main.scss */
 .btn:hover, .btn:focus {
   background-color: #2d6fb9;
 }
 
 /* Checkbox */
-/* line 154, ../sass/main.scss */
+/* line 151, ../sass/main.scss */
 .form-check [type="checkbox"]:not(:checked),
 .form-check [type="checkbox"]:checked {
   position: absolute;
   left: -9999px;
 }
-/* line 160, ../sass/main.scss */
+/* line 157, ../sass/main.scss */
 .form-check [type="checkbox"]:not(:checked) + label,
 .form-check [type="checkbox"]:checked + label {
   position: relative;
   padding-left: 25px;
   cursor: pointer;
 }
-/* line 167, ../sass/main.scss */
+/* line 164, ../sass/main.scss */
 .form-check [type="checkbox"]:not(:checked) + label:before,
 .form-check [type="checkbox"]:checked + label:before {
   content: '';
@@ -166,7 +158,7 @@ textarea.form-control {
   border-radius: 2px;
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
 }
-/* line 179, ../sass/main.scss */
+/* line 176, ../sass/main.scss */
 .form-check [type="checkbox"]:not(:checked) + label:after,
 .form-check [type="checkbox"]:checked + label:after {
   content: 'Ô£ö';
@@ -177,36 +169,36 @@ textarea.form-control {
   color: #ffffff;
   transition: all .2s;
 }
-/* line 189, ../sass/main.scss */
+/* line 186, ../sass/main.scss */
 .form-check [type="checkbox"]:not(:checked) + label:after {
   opacity: 0;
   transform: scale(0);
 }
-/* line 194, ../sass/main.scss */
+/* line 191, ../sass/main.scss */
 .form-check [type="checkbox"]:checked + label:after {
   opacity: 1;
   transform: scale(1);
 }
 
-/* line 200, ../sass/main.scss */
+/* line 197, ../sass/main.scss */
 .input-group-addon {
   border: none !important;
   background-color: #efebeb !important;
 }
 
 /* Switch */
-/* line 211, ../sass/main.scss */
+/* line 208, ../sass/main.scss */
 .form-switch .switch {
   display: inline-block;
   position: relative;
   width: 50px;
   height: 24px;
 }
-/* line 217, ../sass/main.scss */
+/* line 214, ../sass/main.scss */
 .form-switch .switch input {
   display: none;
 }
-/* line 221, ../sass/main.scss */
+/* line 218, ../sass/main.scss */
 .form-switch .slider {
   position: absolute;
   cursor: pointer;
@@ -220,7 +212,7 @@ textarea.form-control {
   -webkit-transition-duration: 0.4s;
   transition-duration: 0.4s;
 }
-/* line 231, ../sass/main.scss */
+/* line 228, ../sass/main.scss */
 .form-switch .slider:before {
   position: absolute;
   content: "";
@@ -234,53 +226,53 @@ textarea.form-control {
   -webkit-transition-duration: 0.4s;
   transition-duration: 0.4s;
 }
-/* line 242, ../sass/main.scss */
+/* line 239, ../sass/main.scss */
 .form-switch input:checked + .slider {
   background-color: #2980b9;
 }
-/* line 245, ../sass/main.scss */
+/* line 242, ../sass/main.scss */
 .form-switch input:focus + .slider {
   box-shadow: 0 0 1px #2980b9;
 }
-/* line 248, ../sass/main.scss */
+/* line 245, ../sass/main.scss */
 .form-switch input:checked + .slider:before {
   -moz-transform: translateX(24px);
   -ms-transform: translateX(24px);
   -webkit-transform: translateX(24px);
   transform: translateX(24px);
 }
-/* line 252, ../sass/main.scss */
+/* line 249, ../sass/main.scss */
 .form-switch .round {
   border-radius: 24px;
 }
-/* line 255, ../sass/main.scss */
+/* line 252, ../sass/main.scss */
 .form-switch .round:before {
   border-radius: 50%;
 }
-/* line 260, ../sass/main.scss */
+/* line 257, ../sass/main.scss */
 .form-switch .form-switch-label {
   position: relative;
   bottom: 11.5px;
 }
 
 @media (max-width: 767px) {
-  /* line 267, ../sass/main.scss */
+  /* line 264, ../sass/main.scss */
   .desktop-mode {
     display: none;
   }
 }
 @media (min-width: 768px) {
-  /* line 273, ../sass/main.scss */
+  /* line 270, ../sass/main.scss */
   .mobile-mode {
     display: none;
   }
 }
-/* line 278, ../sass/main.scss */
+/* line 275, ../sass/main.scss */
 .clear {
   clear: both;
 }
 
-/* line 282, ../sass/main.scss */
+/* line 279, ../sass/main.scss */
 .panel-danger > .panel-heading {
   color: white !important;
   background-color: #2980b9 !important;
@@ -288,13 +280,13 @@ textarea.form-control {
   border-radius: 3px;
 }
 
-/* line 289, ../sass/main.scss */
+/* line 286, ../sass/main.scss */
 .panel-heading {
   border-bottom-left-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
 }
 
-/* line 294, ../sass/main.scss */
+/* line 291, ../sass/main.scss */
 .table-responsive {
   width: 100%;
 }
@@ -663,190 +655,6 @@ h3.sub-description {
 /* line 25, ../sass/_login.scss */
 #fos_user_resetting_form label {
   display: none;
-}
-
-/* line 2, ../sass/_profile.scss */
-#profile-general .profile-left {
-  padding: 5px 20px 0 20px;
-}
-/* line 6, ../sass/_profile.scss */
-#profile-general .profile-right {
-  border-left: 2px solid #2980b9;
-}
-/* line 10, ../sass/_profile.scss */
-#profile-general .profile-right {
-  padding: 20px 25px 5px 25px;
-}
-/* line 13, ../sass/_profile.scss */
-#profile-general .profile-right form {
-  margin-top: 20px;
-}
-/* line 16, ../sass/_profile.scss */
-#profile-general .profile-right form .form-group {
-  margin: 0 !important;
-}
-/* line 21, ../sass/_profile.scss */
-#profile-general .profile-right .profile-element {
-  width: 175px;
-}
-/* line 24, ../sass/_profile.scss */
-#profile-general .profile-right .profile-element .profile-stars {
-  cursor: pointer;
-  width: 175px;
-  margin: 0;
-  background: url('/app/dist/img/star-o-white.png'), center fixed no-repeat;
-}
-/* line 30, ../sass/_profile.scss */
-#profile-general .profile-right .profile-element .profile-stars .profile-star-value {
-  height: 34px;
-  background: url('/app/dist/img/star-white.png'), center fixed no-repeat;
-}
-/* line 36, ../sass/_profile.scss */
-#profile-general .profile-right .profile-element .mark-value {
-  text-align: center;
-  font-weight: bold;
-}
-@media (max-width: 991px) {
-  /* line 44, ../sass/_profile.scss */
-  #profile-general .profile-left {
-    text-align: center;
-  }
-  /* line 48, ../sass/_profile.scss */
-  #profile-general .profile-right {
-    border-left: none;
-  }
-  /* line 54, ../sass/_profile.scss */
-  #profile-general .profile-top .profile-picture img {
-    max-width: 150px;
-    border-radius: 100px;
-  }
-  /* line 60, ../sass/_profile.scss */
-  #profile-general .profile-top .profile-profession {
-    text-align: center;
-  }
-  /* line 64, ../sass/_profile.scss */
-  #profile-general .profile-top .profile-company {
-    text-align: center;
-  }
-  /* line 68, ../sass/_profile.scss */
-  #profile-general .profile-top .profile-company {
-    text-align: center;
-  }
-  /* line 73, ../sass/_profile.scss */
-  #profile-general .profile-company-description {
-    max-width: 450px;
-    display: block;
-    margin: 20px auto 0 auto;
-  }
-  /* line 79, ../sass/_profile.scss */
-  #profile-general .profile-mark,
-  #profile-general .profile-price,
-  #profile-general .profile-link {
-    max-width: 450px;
-    margin: auto;
-  }
-}
-@media (min-width: 991px) {
-  /* line 88, ../sass/_profile.scss */
-  #profile-general .profile-top {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-  }
-  /* line 93, ../sass/_profile.scss */
-  #profile-general .profile-top .profile-name {
-    margin: 0 0 0 20px;
-    font-size: 18px;
-  }
-  /* line 96, ../sass/_profile.scss */
-  #profile-general .profile-top .profile-name h2 {
-    margin: 0 !important;
-  }
-  /* line 102, ../sass/_profile.scss */
-  #profile-general .profile-top .profile-picture {
-    width: 100px;
-  }
-  /* line 105, ../sass/_profile.scss */
-  #profile-general .profile-top .profile-picture img {
-    max-width: 100px;
-    border-radius: 100px;
-  }
-  /* line 110, ../sass/_profile.scss */
-  #profile-general .profile-top .profile-picture .profile-profession {
-    text-align: center;
-  }
-  /* line 114, ../sass/_profile.scss */
-  #profile-general .profile-top .profile-picture .profile-company {
-    text-align: center;
-  }
-}
-
-/* line 122, ../sass/_profile.scss */
-#profile-calendar {
-  width: 100%;
-  min-height: 250px;
-  margin: 32px 0 0 0;
-  background: url('/app/dist/img/profile-calendar.png'), center fixed no-repeat;
-}
-
-/* line 129, ../sass/_profile.scss */
-#profile-location {
-  margin: 32px 0 0 0;
-}
-
-/* line 134, ../sass/_profile.scss */
-#profile-location #map {
-  width: 100%;
-  height: 250px;
-}
-
-/* line 140, ../sass/_profile.scss */
-#profile-general,
-#profile-calendar,
-#profile-location {
-  width: 100%;
-}
-
-/* line 146, ../sass/_profile.scss */
-.calendar-profile {
-  margin: 32px;
-  padding: 10px;
-  background-color: white;
-  border-radius: 5px;
-}
-
-/* line 153, ../sass/_profile.scss */
-.back-url {
-  margin-bottom: 32px;
-}
-
-/* line 157, ../sass/_profile.scss */
-#marks-more-button {
-  cursor: pointer;
-  margin-top: 5px;
-}
-/* line 161, ../sass/_profile.scss */
-#marks-more-button span {
-  display: block;
-  text-align: center;
-}
-
-/* line 1, ../sass/_settings.scss */
-.box-settings {
-  max-width: 900px;
-  text-align: center;
-}
-/* line 9, ../sass/_settings.scss */
-.box-settings .inline input,
-.box-settings .inline select {
-  max-width: 350px;
-  margin: auto;
-  display: inline-block;
-}
-/* line 17, ../sass/_settings.scss */
-.box-settings button[type=submit] {
-  width: 150px;
-  font-size: 18px;
 }
 
 /* line 5, ../sass/_sidebar.scss */
@@ -1243,21 +1051,17 @@ p.question span {
     margin-bottom: 10px;
   }
 }
-/* line 2, ../sass/_edit_profile.scss */
-.edit-profile .box-no-border-radius-top {
-  border-top-left-radius: 0 !important;
-  border-top-right-radius: 0 !important;
-}
-/* line 7, ../sass/_edit_profile.scss */
-.edit-profile .tab-panel {
-  width: 100%;
+/* line 1, ../sass/_edit_profile.scss */
+.tab-panel {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: flex-start;
+  margin: 10px 30px 20px 30px;
+  border-bottom: 1px solid #2980b9;
 }
-/* line 14, ../sass/_edit_profile.scss */
-.edit-profile .tab-panel a {
+/* line 9, ../sass/_edit_profile.scss */
+.tab-panel a {
   color: white !important;
   background-color: #2980b9;
   text-decoration: none;
@@ -1270,114 +1074,33 @@ p.question span {
   transition-duration: 0.15s;
   font-size: 18px;
 }
-/* line 28, ../sass/_edit_profile.scss */
-.edit-profile .tab-panel a.width-30 {
-  width: 33.34%;
-}
-/* line 32, ../sass/_edit_profile.scss */
-.edit-profile .tab-panel a.width-50 {
+/* line 23, ../sass/_edit_profile.scss */
+.tab-panel a.width-50 {
   width: 50%;
 }
-/* line 36, ../sass/_edit_profile.scss */
-.edit-profile .tab-panel a.tab-profile {
+/* line 27, ../sass/_edit_profile.scss */
+.tab-panel a.tab-profile {
   border-top-left-radius: 5px;
 }
-/* line 40, ../sass/_edit_profile.scss */
-.edit-profile .tab-panel a.tab-preferences {
-  border-top-right-radius: 5px;
+/* line 31, ../sass/_edit_profile.scss */
+.tab-panel a.tab-profile,
+.tab-panel a.tab-parameters {
+  border-right: 1px solid #2980b9;
 }
-/* line 44, ../sass/_edit_profile.scss */
-.edit-profile .tab-panel a.tab-profile,
-.edit-profile .tab-panel a.tab-parameters {
-  border-right: 1px solid #0d1e34;
-}
-/* line 49, ../sass/_edit_profile.scss */
-.edit-profile .tab-panel a:hover {
+/* line 36, ../sass/_edit_profile.scss */
+.tab-panel a:hover {
   text-decoration: none;
-  background-color: white;
+  background-color: #efebeb;
   color: #2980b9 !important;
 }
-/* line 55, ../sass/_edit_profile.scss */
-.edit-profile .tab-panel a.active {
+/* line 42, ../sass/_edit_profile.scss */
+.tab-panel a.active {
   color: #2980b9 !important;
-  background-color: white;
+  background-color: #efebeb;
 }
-
-/* line 62, ../sass/_edit_profile.scss */
-#upload-picture {
-  cursor: pointer;
-  width: 200px;
-  margin: 16px auto 16px auto;
-}
-/* line 67, ../sass/_edit_profile.scss */
-#upload-picture #upload-picture-image {
-  width: 200px;
-  border-radius: 125px;
-}
-
-/* line 74, ../sass/_edit_profile.scss */
-form #professional_location .form-group:last-of-type {
-  text-align: left !important;
-}
-/* line 79, ../sass/_edit_profile.scss */
-form #professional_birthDate #professional_birthDate_day {
-  width: 23%;
-  margin-right: 2%;
-  display: inline-block !important;
-}
-/* line 85, ../sass/_edit_profile.scss */
-form #professional_birthDate #professional_birthDate_month {
-  width: 23%;
-  margin-right: 2%;
-  display: inline-block !important;
-}
-/* line 91, ../sass/_edit_profile.scss */
-form #professional_birthDate #professional_birthDate_year {
-  width: 50%;
-  display: inline-block !important;
-}
-/* line 98, ../sass/_edit_profile.scss */
-form #user_birthDate #user_birthDate_day {
-  width: 23%;
-  margin-right: 2%;
-  display: inline-block !important;
-}
-/* line 104, ../sass/_edit_profile.scss */
-form #user_birthDate #user_birthDate_month {
-  width: 23%;
-  margin-right: 2%;
-  display: inline-block !important;
-}
-/* line 110, ../sass/_edit_profile.scss */
-form #user_birthDate #user_birthDate_year {
-  width: 50%;
-  display: inline-block !important;
-}
-/* line 116, ../sass/_edit_profile.scss */
-form #user_pictureUpload,
-form #professional_pictureUpload {
-  display: none;
-}
-
-/* line 123, ../sass/_edit_profile.scss */
-#professional_educations input[type="text"] {
-  width: 87%;
-  margin-bottom: 5px;
-  float: left;
-}
-/* line 129, ../sass/_edit_profile.scss */
-#professional_educations button {
-  width: 11%;
-  height: 41px;
-  line-height: 20px;
-  float: right;
-  margin-left: 5px;
-  margin-bottom: 5px;
-  margin-top: 0 !important;
-}
-/* line 140, ../sass/_edit_profile.scss */
-#professional_educations .form-group div {
-  display: none;
+/* line 47, ../sass/_edit_profile.scss */
+.tab-panel a:last-child {
+  border: none;
 }
 
 /* line 2, ../sass/_survey.scss */

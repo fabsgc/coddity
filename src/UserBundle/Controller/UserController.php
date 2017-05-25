@@ -21,23 +21,6 @@ use UserBundle\Form\Type\UserSettingsType;
 
 class UserController extends Controller {
     /**
-     * Show user profile
-     * @Route("/account/{slug}", name="fos_user_profile_show")
-     * @Method({"GET"})
-     * @ParamConverter("user", class="AppBundle:User")
-     * @param Request $request
-     * @param User $profile
-     * @return Response
-     */
-    public function showProfileAction(Request $request, User $profile) {
-        if($profile instanceof User) {
-            return $this->render('UserBundle:Profile:show.html.twig', compact('profile'));
-        }
-
-        return $this->redirectToRoute('home');
-    }
-
-    /**
      * @Security("has_role('ROLE_USER')")
      * @Route("/account/edit/general", name="profile_edit_general")
      * @param Request $request
@@ -46,7 +29,7 @@ class UserController extends Controller {
     public function editGeneralAction(Request $request) {
         $user = $this->getUser();
 
-        $form = $this->createForm(UserSettingsType::class, $user->getSettings());
+        $form = $this->createForm(UserSettingsType::class, $user);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
@@ -57,7 +40,7 @@ class UserController extends Controller {
             return $this->redirectToRoute('profile_edit_general');
         }
 
-        return $this->render('UserBundle:Profile:editGeneral.html.twig', [
+        return $this->render('UserBundle:Profile:edit.html.twig', [
             'form' => $form->createView()
         ]);
     }

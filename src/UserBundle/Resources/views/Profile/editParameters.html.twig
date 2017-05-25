@@ -2,13 +2,7 @@
 
 {% extends('AppBundle::layout.html.twig') %}
 
-{% form_theme form '@AppBundle/Resources/views/Form/fields.html.twig' %}
-
-{% block title %}{{ app.user.firstName ~ " " ~ app.user.lastName|upper }}{% endblock %}
-
-{% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('app/vendor/datepicker/datepicker.css') }}">
-{% endblock %}
+{% block title %}Editer mon profil{% endblock %}
 
 {% block javascripts %}
 
@@ -17,8 +11,19 @@
 {% block content %}
     <div class="background-image background-desktop"></div>
     <div class="container">
+    <div class="container-fluid">
+        {% include('AppBundle::flash-message.html.twig') %}
         <div class="row">
+            <h1 class="text-center">Modifier mon profil</h1>
+        </div>
+        <div class="row">
+            {% include('UserBundle::Profile/tab.html.twig') %}
             <div class="col-md-12">
+                <div class="col-md-12">
+                    {{ form_errors(form) }}
+                    {{ form_start(form) }}
+                    {{ form_end(form) }}
+                </div>
             </div>
         </div>
     </div>
