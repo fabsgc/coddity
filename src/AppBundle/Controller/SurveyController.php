@@ -51,19 +51,124 @@ class SurveyController extends Controller
 	 */
     public function listAction(Request $request)
     {
-        return $this->render('AppBundle:Survey:index.html.twig', []);
+        $em = $this->getDoctrine()->getManager();
+        $surveys = $em->getRepository('AppBundle:Survey')->findByUser($this->getUser());
+
+        return $this->render('AppBundle:Survey:index.html.twig', [
+            'surveys' => $surveys
+        ]);
     }
 
     /**
-     * @Route("/edit", name="survey_edit")
+     * @Route("/edit/{survey}", name="survey_edit")
+     * @Security("has_role('ROLE_USER')")
+     * @Method({"GET", "POST"})
+     * @param Request $request
+     * @param Survey $survey
+     * @return Response
+     */
+    public function editAction(Request $request, Survey $survey)
+    {
+        $em = $this->getDoctrine()->getManager();
+        return $this->render('AppBundle:Survey:edit.html.twig', []);
+    }
+
+    /**
+     * @Route("/delete/{survey}", name="survey_delete")
+     * @ParamConverter("survey", class="AppBundle:Survey")
+     * @Method({"GET"})
+     * @Security("has_role('ROLE_USER')")
+     * @param Request $request
+     * @param Survey $survey
+     * @return Response
+     */
+    public function deleteAction(Request $request, Survey $survey)
+    {
+        if($this->getUser() == $survey->getUser()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($survey);
+            $em->flush();
+            $this->addFlash('success', 'Sondage supprimé');
+        }
+        else {
+            $this->addFlash('error', 'Vous ne pouvez pas supprimer ce sondage');
+        }
+
+        return $this->redirectToRoute('admin_survey_list');
+    }
+
+    /**
+     * @Route("/new/choice/{survey}", name="survey_choice_new")
+     * @ParamConverter("survey", class="AppBundle:Survey")
      * @Security("has_role('ROLE_USER')")
      * @Method({"GET", "POST"})
      * @param Request $request
      * @return Response
      */
-    public function editSurveyAction(Request $request)
+    public function newChoiceAction(Request $request, Survey $survey)
     {
+        $em = $this->getDoctrine()->getManager();
         return $this->render('AppBundle:Survey:index.html.twig', []);
+    }
+
+    /**
+     * @Route("/edit/choice/{choice}", name="survey_choice_edit")
+     * @ParamConverter("choice", class="AppBundle:Choice")
+     * @Security("has_role('ROLE_USER')")
+     * @Method({"GET", "POST"})
+     * @param Request $request
+     * @param Choice $choice
+     * @return Response
+     */
+    public function editChoiceAction(Request $request, Choice $choice)
+    {
+        $em = $this->getDoctrine()->getManager();
+        return $this->render('AppBundle:Survey:index.html.twig', []);
+    }
+
+    /**
+     * @Route("/delete/choice/{choice}", name="survey_choice_delete")
+     * @ParamConverter("choice", class="AppBundle:Choice")
+     * @Method({"GET"})
+     * @Security("has_role('ROLE_USER')")
+     * @param Request $request
+     * @param Choice $choice
+     * @return Response
+     */
+    public function deleteChoiceAction(Request $request, Choice $choice)
+    {
+        $em = $this->getDoctrine()->getManager();
+        return $this->redirectToRoute('admin_survey_list');
+    }
+
+    /**
+     * @Route("/new/participant/{survey}", name="survey_participant_new")
+     * @ParamConverter("survey", class="AppBundle:Survey")
+     * @Security("has_role('ROLE_USER')")
+     * @Method({"GET", "POST"})
+     * @param Request $request
+     * @param Survey $survey
+     * @return Response
+     */
+    public function newParticipantAction(Request $request, Survey $survey)
+    {
+        $em = $this->getDoctrine()->getManager();
+        return $this->render('AppBundle:Survey:index.html.twig', []);
+    }
+
+    /**
+     * @Route("/delete/{participant}", name="survey_participant_delete")
+     * @ParamConverter("participant", class="AppBundle:Participant")
+     * @Method({"GET"})
+     * @Security("has_role('ROLE_USER')")
+     * @param Request $request
+     * @param Participant $participant
+     * @return Response
+     */
+    public function deleteParticipantAction(Request $request, Participant $participant)
+    {
+        $em = $this->getDoctrine()->getManager();
+        return $this->redirectToRoute('admin_survey_list');
     }
 
     /**
@@ -161,30 +266,6 @@ class SurveyController extends Controller
             $this->addFlash('danger', 'Vous ne pouvez pas voter ici');
             return $this->redirectToRoute('home');
         }
-    }
-
-    /**
-     * @Route("/delete/{id}", name="survey_delete")
-     * @ParamConverter("survey", class="AppBundle:Support")
-     * @Method({"GET"})
-     * @Security("has_role('ROLE_USER')")
-     * @param Request $request
-     * @param Survey $survey
-     * @return Response
-     */
-    public function deleteAction(Request $request, Survey $survey)
-    {
-        if($this->getUser() == $survey->getUser()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($survey);
-            $em->flush();
-            $this->addFlash('success', 'Sondage supprimé');
-        }
-        else {
-            $this->addFlash('error', 'Vous ne pouvez pas supprimer ce sondage');
-        }
-
-        return $this->redirectToRoute('admin_survey_list');
     }
 
 	/**
