@@ -60,7 +60,36 @@ class SurveyController extends Controller
     }
 
     /**
+     * @Route("/{survey}", name="survey_show")
+     * @ParamConverter("survey", class="AppBundle:Survey")
+     * @Security("has_role('ROLE_USER')")
+     * @param Request $request
+     * @param Survey $survey
+     * @return Response
+     */
+    public function showAction(Request $request, Survey $survey)
+    {
+        $em = $this->getDoctrine()->getManager();
+        return $this->render('AppBundle:Survey:edit.html.twig', []);
+    }
+
+    /**
+     * @Route("/{survey}/{token}", name="survey_results")
+     * @ParamConverter("survey", class="AppBundle:Survey")
+     * @param Request $request
+     * @param Survey $survey
+     * @param String $token
+     * @return Response
+     */
+    public function showResults(Request $request, Survey $survey, String $token)
+    {
+        $em = $this->getDoctrine()->getManager();
+        return $this->render('AppBundle:Survey:edit.html.twig', []);
+    }
+
+    /**
      * @Route("/edit/{survey}", name="survey_edit")
+     * @ParamConverter("survey", class="AppBundle:Survey")
      * @Security("has_role('ROLE_USER')")
      * @Method({"GET", "POST"})
      * @param Request $request
