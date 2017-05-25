@@ -9,6 +9,7 @@ use AppBundle\Entity\SurveyChoices;
 use AppBundle\Entity\SurveyGeneral;
 use AppBundle\Entity\SurveyParticipants;
 use AppBundle\Entity\User;
+use AppBundle\Entity\Vote;
 use AppBundle\Form\Type\SurveyChoicesChoiceType;
 use AppBundle\Form\Type\SurveyChoicesDateType;
 use AppBundle\Form\Type\SurveyGeneralType;
@@ -88,7 +89,56 @@ class SurveyController extends Controller
                     $form->handleRequest($request);
 
                     if ($form->isSubmitted() && $form->isValid()) {
+                        $surveyChoices = $request->get('survey_choice');
 
+                        //We check that the user has sent something
+                        if($surveyChoices != null) {
+                            //We check if the user has given the correct number of choices
+                            if(!$survey->isMultiple() && is_array($surveyChoices) && count($surveyChoices) > 1) {
+                                $form->addError(new FormError('Ce sondage ne peut avoir qu\'une seule réponse'));
+                            }
+                            else {
+                                if(!is_array($surveyChoices)) {
+                                    $surveyChoices = [$surveyChoices => $surveyChoices];
+                                }
+
+                                $isValid = true;
+
+                                //We check if each choice is valid
+                                foreach ($surveyChoices as $key => $surveyChoice) {
+                                    $choice = $em->getRepository('AppBundle:Choice')->findByIdAndSurvey($key, $survey);
+
+                                    if(!$choice instanceof Choice) {
+                                        $form->addError(new FormError('Certains des choix que vous avez donnés ne sont pas valides'));
+                                        $isValid = false;
+                                        break;
+                                    }
+                                }
+
+                                if($isValid) {
+                                    $participant->setHasVoted(true);
+                                    $em->persist($participant);
+                                    $em->flush();
+
+                                    foreach ($surveyChoices as $key => $surveyChoice) {
+                                        $choice = $em->getRepository('AppBundle:Choice')->findByIdAndSurvey($key, $survey);
+
+                                        $vote = new Vote();
+                                        $vote->setSurvey($survey);
+                                        $vote->setParticipant($participant);
+                                        $vote->setChoice($choice);
+                                        $em->persist($vote);
+                                        $em->flush();
+                                    }
+
+                                    $this->addFlash('success', 'Merci d\'avoir pris le temps de répondre à ce sondage !');
+                                    return $this->redirectToRoute('home');
+                                }
+                            }
+                       }
+                       else {
+                           $form->addError(new FormError('Vous devez au moins choisir une réponse'));
+                       }
                     }
 
                     return $this->render('AppBundle:Survey:answer.html.twig', [
@@ -183,13 +233,6 @@ class SurveyController extends Controller
         /** @var Session\Session $session */
         $session = $this->get("session");
 
-        /*if ($session->has('surveyChoices')) {
-            $surveyChoices = $session->get('surveyChoices');
-        }
-        else {
-            $surveyChoices = new surveyChoices();
-        }*/
-
         $surveyChoices = new surveyChoices();
 
         if ($session->has('surveyGeneral')) {
@@ -221,8 +264,16 @@ class SurveyController extends Controller
                         }
                     }
 
-                    if($countEqualChoice == 1 && trim($choice1) != '') {
-                        array_push($choicesTrim, $choice1);
+                    if($surveyGeneral->getType() == 'CHOICE') {
+                        if($countEqualChoice == 1 && trim($choice1) != '') {
+                            array_push($choicesTrim, $choice1);
+                        }
+                    }
+                    else {
+                        if($countEqualChoice == 1) {
+                            /** @var $choice1 \DateTime */
+                            array_push($choicesTrim, $choice1->format('d/m/Y'));
+                        }
                     }
                 }
 
@@ -271,13 +322,6 @@ class SurveyController extends Controller
 
         /** @var Mailer $mailer */
         $mailer = $this->container->get('app.mailer');
-
-        /*if ($session->has('surveyParticipants')) {
-            $surveyParticipants = $session->get('surveyParticipants');
-        }
-        else {
-            $surveyParticipants = new SurveyParticipants();
-        }*/
 
         $surveyParticipants = new SurveyParticipants();
 
@@ -407,9 +451,14 @@ class SurveyController extends Controller
                 $em->persist($participant);
                 $em->flush();
 
-                var_dump($surveyParticipants->getParticipants());
+                $session->remove('surveyGeneral');
 
-                //return $this->redirectToRoute('survey_create_participants');
+                $this->addFlash('success', 'Votre sondage a bien été créé, il ne vous reste plus qu\'à y répondre !');
+
+                return $this->redirectToRoute('survey_answer', [
+                    'survey' => $survey->getId(),
+                    'token' => $participant->getToken()
+                ]);
             }
             else {
                 return $this->render('AppBundle:Survey:createSurveyParticipants.html.twig', [

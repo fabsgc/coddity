@@ -19,7 +19,10 @@ class SurveyGeneralType extends AbstractType
                 'label' => 'Nom',
             ))
             ->add('description', TextareaType::class, array(
-                'label' => 'Description',
+                'label' => 'Description (syntaxe markdown)',
+                'attr' =>  [
+                    'rows' => 5
+                ]
             ))
             ->add(
                 'type', ChoiceType::class, [

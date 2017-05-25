@@ -19,4 +19,14 @@ class ChoiceRepository extends \Doctrine\ORM\EntityRepository
             ->setParameter('s', $survey)
             ->getQuery()->getResult();
     }
+
+    public function findByIdAndSurvey($id, Survey $survey) {
+        return $this->createQueryBuilder('c')
+            ->where('c.survey = :survey')
+            ->andWhere('c.id = :id')
+            ->setParameter('survey', $survey)
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }
