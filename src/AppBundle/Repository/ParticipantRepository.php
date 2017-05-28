@@ -4,6 +4,7 @@ namespace AppBundle\Repository;
 
 use AppBundle\Entity\Participant;
 use AppBundle\Entity\Survey;
+use AppBundle\Entity\User;
 
 /**
  * SubscriptionRepository
@@ -20,12 +21,42 @@ class ParticipantRepository extends \Doctrine\ORM\EntityRepository
             ->getQuery()->getResult();
     }
 
+    public function countBySurvey(Survey $survey) {
+        return $this->createQueryBuilder('p')
+            ->select('count(p.id)')
+            ->where('p.survey = :s')
+            ->setParameter('s', $survey)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
     public function findBySurveyAndToken(Survey $survey, string $token) {
         return $this->createQueryBuilder('p')
             ->where('p.survey = :s')
             ->andWhere('p.token = :p2')
             ->setParameter('s', $survey)
             ->setParameter('p2', $token)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function countBySurveyAndEmail(Survey $survey, string $email) {
+        return $this->createQueryBuilder('p')
+            ->select('count(p.id)')
+            ->where('p.survey = :survey')
+            ->andWhere('p.email = :email')
+            ->setParameter('survey', $survey)
+            ->setParameter('email', $email)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function findBySurveyAndUser(Survey $survey, User $user) {
+        return $this->createQueryBuilder('p')
+            ->where('p.survey = :survey')
+            ->andWhere('p.user = :user')
+            ->setParameter('survey', $survey)
+            ->setParameter('user', $user)
             ->getQuery()
             ->getOneOrNullResult();
     }

@@ -15,7 +15,6 @@ class ChoiceRepository extends \Doctrine\ORM\EntityRepository
     public function findBySurvey(Survey $survey) {
         return $this->createQueryBuilder('c')
             ->where('c.survey = :s')
-            ->orderBy('c.ordering')
             ->setParameter('s', $survey)
             ->getQuery()->getResult();
     }

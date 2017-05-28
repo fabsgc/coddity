@@ -146,13 +146,11 @@ class LoadData implements FixtureInterface, ContainerAwareInterface, OrderedFixt
      * @param Choice $choice
      * @param Survey $survey
      * @param string $description
-     * @param int $order
      * @return Choice
      */
-    private function createChoice(Choice $choice, Survey $survey, $description = '', $order = 0) {
+    private function createChoice(Choice $choice, Survey $survey, $description = '') {
         $choice->setSurvey($survey);
         $choice->setDescription($description);
-        $choice->setOrdering($order);
 
         return $choice;
     }

@@ -56,6 +56,12 @@ a {
   }
 }
 
+td {
+  a:hover {
+    text-decoration: none;
+  }
+}
+
 a.link-white{
   color: white!important;
 }

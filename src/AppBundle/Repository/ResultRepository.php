@@ -15,6 +15,7 @@ class ResultRepository extends \Doctrine\ORM\EntityRepository
     public function findBySurvey(Survey $survey) {
         return $this->createQueryBuilder('r')
             ->where('r.survey = :s')
+            ->orderBy('r.value', 'desc')
             ->setParameter('s', $survey)
             ->getQuery()->getResult();
     }

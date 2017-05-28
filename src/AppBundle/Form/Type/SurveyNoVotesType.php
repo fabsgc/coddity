@@ -1,16 +1,16 @@
 <?php
 namespace AppBundle\Form\Type;
 
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class SurveyEditType extends AbstractType
+class SurveyNoVotesType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -19,7 +19,14 @@ class SurveyEditType extends AbstractType
                 'label' => 'Nom',
             ))
             ->add('description', TextareaType::class, array(
-                'label' => 'Description',
+                'label' => 'Description (syntaxe markdown)',
+                'attr' =>  [
+                    'rows' => 5
+                ]
+            ))
+            ->add('multiple', CheckboxType::class, array(
+                'label' => 'Choix Multiple ?',
+                'required' => false
             ))
             ->add('submit', SubmitType::class, array(
                 'label' => 'Enregistrer',

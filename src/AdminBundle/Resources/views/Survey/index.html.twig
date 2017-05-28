@@ -65,6 +65,11 @@
                     <a href="{{ path('admin_survey_delete', { 'id': survey.id }) }}">
                         <button type="button" class="btn btn-danger btn-circle"><i class="fa fa-trash"></i></button>
                     </a>
+                    {% if survey.opened %}
+                        <a href="{{ path('survey_end', { survey: survey.id }) }}">
+                            <button type="button" class="btn btn-info btn-circle"><i class="fa fa-flag-checkered"></i></button>
+                        </a>
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}

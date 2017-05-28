@@ -32,7 +32,7 @@ class Survey
     /**
      * @var string
      * @ORM\Column(type="text")
-     * @Assert\Length(min=3, max=64)
+     * @Assert\Length(min=3)
      */
     private $description;
 

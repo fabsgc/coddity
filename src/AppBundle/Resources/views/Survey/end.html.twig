@@ -1,0 +1,37 @@
+{% trans_default_domain('App') %}
+
+{% extends('AppBundle::layout.html.twig') %}
+
+{% block title %}{{ survey.name }} - nouveau participant{% endblock %}
+
+{% block content %}
+    <div class="background-image"></div>
+    <div class="container">
+        <div class="container-fluid">
+            {% include('AppBundle::flash-message.html.twig') %}
+            <div class="row">
+                <h1 class="text-center">{{ survey.name }} - résolution de conflit</h1>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="text-justify">
+                        Le sondage que vous avez lancé présente un conflit au niveau de ses résultats. Il est impossible de départager automatiquement les choix proposés.
+                        Pour résoudre ces conflits, nous vous proposons soit de définir vous-mêmes un gagnant parmi les scores les plus élevés, soit de recréer un sondage
+                        automatiquement à partir des choix en conflit.<br><br>
+                    </p>
+                    <p>
+                        {% for choicesEntitiesSameScore in choicesEntitiesSameScores %}
+                            <a href="{{ path('survey_winner', {choice: choicesEntitiesSameScore.id}) }}" class="btn btn-block">
+                                Définir <em>"{{ choicesEntitiesSameScore.description|length > 50 ? choicesEntitiesSameScore.description|slice(0, 50) ~ '...' : choicesEntitiesSameScore.description }}"</em> comme gagnant
+                            </a>
+                        {% endfor %}
+                        <br>
+                        <a href="{{ path('survey_conflict_resolve', {survey: survey.id}) }}" class="btn btn-block">
+                            Créer un nouveau sondage
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

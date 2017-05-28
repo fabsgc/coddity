@@ -1,0 +1,52 @@
+{% trans_default_domain('App') %}
+
+{% extends('AppBundle::layout.html.twig') %}
+
+{% block title %}{{ survey.name }} - nouveau participant{% endblock %}
+
+{% form_theme form '@AppBundle/Resources/views/Form/fields.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('admin/vendor/jquery-ui/jquery-ui.min.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('app/vendor/jquery-ui/jquery-ui.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="background-image"></div>
+    <div class="container">
+        <div class="container-fluid">
+            {% include('AppBundle::flash-message.html.twig') %}
+            <div class="row">
+                <h1 class="text-center">{{ survey.name }} - nouveau participant</h1>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    {{ form_errors(form) }}
+                    {{ form_start(form) }}
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="application/javascript">
+        $(document).on('keydown.autocomplete', '.participant-element', function() {
+            $(this).autocomplete({
+                source: "{{ path('survey_autocomplete_user') }}",
+                minLength: 2,
+                select: function( event, ui ) {
+                    if(ui.item){
+                        $(this).val(ui.item.key);
+                    }
+                    else{
+                        $(this).val('');
+                    }
+                }
+            });
+        });
+    </script>
+{% endblock %}

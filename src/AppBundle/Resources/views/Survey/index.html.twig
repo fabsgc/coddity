@@ -14,7 +14,64 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Type</th>
+                                <th>Ouvert</th>
+                                <th>Multiple</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if surveys is not empty %}
+                                {% for survey in surveys %}
+                                    <tr>
+                                        <td>{{ survey.name }}</td>
+                                        <td>
+                                            {% if survey.type == 'CHOICE' %}
+                                                Choix
+                                            {% else %}
+                                                Dates
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if survey.opened %}
+                                                Oui
+                                            {% else %}
+                                                Non
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if survey.multiple %}
+                                                Oui
+                                            {% else %}
+                                                Non
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <a href="{{ path('survey_show', { survey: survey.id }) }}">
+                                                <button type="button" class="btn btn-info btn-circle"><i class="fa fa-arrow-right"></i></button>
+                                            </a>
+                                            <a href="{{ path('survey_edit', { survey: survey.id }) }}">
+                                                <button type="button" class="btn btn-info btn-circle"><i class="fa fa-pencil"></i></button>
+                                            </a>
+                                            <a href="{{ path('survey_delete', { survey: survey.id }) }}">
+                                                <button type="button" class="btn btn-info btn-circle"><i class="fa fa-times"></i></button>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="6">
+                                        <h3 class="text-center">Aucun sondage</h3>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

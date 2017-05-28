@@ -47,8 +47,8 @@ class Result
     private $choice;
 
     /**
-     * @var Participant
-     * @ORM\ManyToOne(targetEntity="Participant")
+     * @var Survey
+     * @ORM\ManyToOne(targetEntity="Survey")
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $survey;
@@ -132,16 +132,16 @@ class Result
     }
 
     /**
-     * @return Participant
+     * @return Survey
      */
-    public function getSurvey(): Participant {
+    public function getSurvey(): Survey {
         return $this->survey;
     }
 
     /**
-     * @param Participant $survey
+     * @param Survey $survey
      */
-    public function setSurvey(Participant $survey) {
+    public function setSurvey(Survey $survey) {
         $this->survey = $survey;
     }
 }

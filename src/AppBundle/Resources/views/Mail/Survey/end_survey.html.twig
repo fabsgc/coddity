@@ -1,0 +1,11 @@
+{% extends('AppBundle:Mail:layout.html.twig') %}
+
+{% block content %}
+    Bonjour,<br><br>
+
+    Le sondage auquel tu as participé "{{ survey.name }}" est terminé et les résultats sont : <a href="{{ url('survey_results', { 'survey': survey.id, 'token': token }) }}">disponibles ici</a>
+
+    A bientôt !
+    L'équipe de Agreed
+
+{% endblock %}

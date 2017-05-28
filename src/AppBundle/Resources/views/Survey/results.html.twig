@@ -1,0 +1,60 @@
+{% trans_default_domain('App') %}
+
+{% extends('AppBundle::layout.html.twig') %}
+
+{% block title %}{{ survey.name }} - résultats {% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('app/dist/css/chartist.min.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="background-image"></div>
+    <div class="container">
+        <div class="container-fluid">
+            {% include('AppBundle::flash-message.html.twig') %}
+            <div class="row">
+                <h1 class="text-center">{{ survey.name }} - résultats</h1>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="ct-chart">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ asset('app/dist/js/chartist.min.js') }}"></script>
+    <script type="application/javascript">
+        var data = {
+            labels: ['Bananas', 'Apples', 'Grapes'],
+            series: [20, 15, 40]
+        };
+
+        var options = {
+            labelInterpolationFnc: function(value) {
+                return value[0]
+            }
+        };
+
+        var responsiveOptions = [
+            ['screen and (min-width: 640px)', {
+                chartPadding: 30,
+                labelOffset: 100,
+                labelDirection: 'explode',
+                labelInterpolationFnc: function(value) {
+                    return value;
+                }
+            }],
+            ['screen and (min-width: 1024px)', {
+                labelOffset: 80,
+                chartPadding: 20
+            }]
+        ];
+
+        var pie = new Chartist.Pie('.ct-chart', data, options, { width: '500px', height: '300px'});
+        pie.scale(20,20);
+    </script>
+{% endblock %}

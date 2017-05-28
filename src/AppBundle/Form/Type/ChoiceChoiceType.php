@@ -9,13 +9,13 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ParticipantEditType extends AbstractType
+class ChoiceChoiceType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('participant', TextType::class, array(
-                'label' => 'Adresse email ou nom d\'utilisateur',
+            ->add('description', TextType::class, array(
+                'label' => 'Choix',
                 'mapped' => 'false'
             ))
             ->add('submit', SubmitType::class, array(
@@ -28,7 +28,7 @@ class ParticipantEditType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Participant'
+            'data_class' => 'AppBundle\Entity\Choice'
         ));
     }
 }

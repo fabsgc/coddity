@@ -1,0 +1,250 @@
+{% trans_default_domain('App') %}
+
+{% extends('AppBundle::layout.html.twig') %}
+
+{% block title %}{{ survey.name }}{% endblock %}
+
+{% block content %}
+    <div class="background-image"></div>
+    <div class="container">
+        <div class="container-fluid">
+            {% include('AppBundle::flash-message.html.twig') %}
+            <div class="row">
+                <h1 class="text-center">{{ survey.name }}</h1>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>Informations sur le sondage</h3>
+
+                    {% if survey.opened == false %}
+                        <a href="{{ path('survey_results', {survey: survey.id, token: participantUser.token}) }}" class="btn pull-right">Voir les résultats</a>
+                        <br><br><br>
+                    {% elseif participantUser.hasVoted == false %}
+                        <a href="{{ path('survey_answer', {survey: survey.id, token: participantUser.token}) }}" class="btn pull-right">Voter</a>
+                        <br><br><br>
+                    {% endif %}
+
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Type</th>
+                            <th>Ouvert</th>
+                            <th>Multiple</th>
+                            <th>Gagnant</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ survey.name }}</td>
+                                <td>
+                                    {% if survey.type == 'CHOICE' %}
+                                        Choix
+                                    {% else %}
+                                        Dates
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if survey.opened %}
+                                        Oui
+                                    {% else %}
+                                        Non
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if survey.multiple %}
+                                        Oui
+                                    {% else %}
+                                        Non
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if survey.winner != null %}
+                                        {{ survey.winner.description|length > 50 ? survey.winner.description|slice(0, 50) ~ '...' : survey.winner.description }}
+                                    {% else %}
+                                        Pas de gagnant
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a href="{{ path('survey_edit', { survey: survey.id }) }}">
+                                        <button type="button" class="btn btn-info btn-circle"><i class="fa fa-pencil"></i></button>
+                                    </a>
+                                    <a href="{{ path('survey_delete', { survey: survey.id }) }}">
+                                        <button type="button" class="btn btn-info btn-circle"><i class="fa fa-times"></i></button>
+                                    </a>
+                                    {% if survey.opened and votesCount > 0 %}
+                                        <a href="{{ path('survey_end', { survey: survey.id }) }}">
+                                            <button type="button" class="btn btn-info btn-circle"><i class="fa fa-flag-checkered"></i></button>
+                                        </a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-12">
+                    <h3>Liste des choix</h3>
+
+                    {% if votesCount == 0 and survey.opened %}
+                        <a href="{{ path('survey_choice_new', {survey: survey.id}) }}" class="btn pull-right">Nouveau choix</a>
+                        <br><br><br>
+                    {% endif %}
+
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>Description</th>
+                            {% if votesCount == 0 and survey.opened %}
+                                <th>Actions</th>
+                            {% endif %}
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if choices is not empty %}
+                            {% for choice in choices %}
+                                <tr>
+                                    <td>{{ choice.description|length > 50 ? choice.description|slice(0, 50) ~ '...' : choice.description }}</td>
+                                    {% if votesCount == 0 and survey.opened %}
+                                        <td>
+                                            <a href="{{ path('survey_choice_delete', { choice: choice.id }) }}">
+                                                <button type="button" class="btn btn-info btn-circle"><i class="fa fa-times"></i></button>
+                                            </a>
+                                        </td>
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="6">
+                                    <h4 class="text-center">Aucun choix</h4>
+                                </td>
+                            </tr>
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-12">
+                    <h3>Liste des participants</h3>
+                    {% if survey.opened %}
+                        <a href="{{ path('survey_participant_new', {survey: survey.id}) }}" class="btn pull-right">Nouveau participant</a>
+                        <br><br><br>
+                    {% endif %}
+
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>Nom d'utilisateur</th>
+                            <th>Email</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if participants is not empty %}
+                            {% for participant in participants %}
+                                <tr>
+                                    <td>
+                                        {% if participant.user != null %}
+                                            {{ participant.user.username }}
+                                        {% else %}
+                                            Pas inscrit
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if participant.user == null %}
+                                            {{ participant.email }}
+                                        {% else %}
+                                            {{ participant.user.email }}
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if participant.user != app.user %}
+                                            <a href="{{ path('survey_participant_delete', { participant: participant.id }) }}">
+                                                <button type="button" class="btn btn-info btn-circle"><i class="fa fa-times"></i></button>
+                                            </a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="6">
+                                    <h4 class="text-center">Aucun participant</h4>
+                                </td>
+                            </tr>
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-12">
+                    <h3>Liste des votes</h3>
+
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>Participant</th>
+                            <th>Choix</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if votes is not empty %}
+                            {% for vote in votes %}
+                                <tr>
+                                    <td>
+                                        {% if vote.participant.user != null %}
+                                            {{ vote.participant.user.username }}
+                                        {% else %}
+                                            {{ vote.participant.email }}
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {{ vote.choice.description|length > 50 ? vote.choice.description|slice(0, 50) ~ '...' : vote.choice.description }}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="6">
+                                    <h4 class="text-center">Aucun vote</h4>
+                                </td>
+                            </tr>
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-12">
+                    <h3>Liste des résultats</h3>
+
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>Choix</th>
+                            <th>Résultat (%)</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if results is not empty %}
+                            {% for result in results %}
+                                <tr>
+                                    <td>
+                                        {{ result.choice.description|length > 50 ? result.choice.description|slice(0, 50) ~ '...' : result.choice.description }}
+                                    </td>
+                                    <td>
+                                        {{ result.value }}%
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="6">
+                                    <h4 class="text-center">Aucun résultat</h4>
+                                </td>
+                            </tr>
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -107,7 +107,7 @@ class Participant
     /**
      * @return string
      */
-    public function getEmail(): string {
+    public function getEmail() {
         return $this->email;
     }
 
@@ -177,7 +177,7 @@ class Participant
     /**
      * @return User
      */
-    public function getUser(): User {
+    public function getUser() {
         return $this->user;
     }
 

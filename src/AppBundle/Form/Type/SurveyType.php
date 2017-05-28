@@ -4,11 +4,6 @@ namespace AppBundle\Form\Type;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -25,19 +20,6 @@ class SurveyType extends AbstractType
             ))
             ->add('description', TextareaType::class, array(
                 'label' => 'Description',
-            ))
-            ->add(
-                'type', ChoiceType::class, [
-                'choices' => ['CHOICE' => 'Choix', 'DATE' => 'Date'],
-                'label' => 'Type de choix'
-            ])
-            ->add('multiple', CheckboxType::class, array(
-                'label' => 'Choix Multiple ?',
-                'required' => false
-            ))
-            ->add('opened', CheckboxType::class, array(
-                'label' => 'Ouvert ?',
-                'required' => false
             ))
             ->add('submit', SubmitType::class, array(
                 'label' => 'Enregistrer',

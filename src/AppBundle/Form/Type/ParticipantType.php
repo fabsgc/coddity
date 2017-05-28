@@ -9,14 +9,17 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ChoiceEditChoiceType extends AbstractType
+class ParticipantType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('choix', TextType::class, array(
-                'label' => 'Choix',
-                'mapped' => 'false'
+            ->add('participant', TextType::class, array(
+                'label' => 'Adresse email ou nom d\'utilisateur',
+                'mapped' => false,
+                'attr' => [
+                    'class' => 'participant-element'
+                ]
             ))
             ->add('submit', SubmitType::class, array(
                 'label' => 'Enregistrer',

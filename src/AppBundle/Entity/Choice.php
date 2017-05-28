@@ -28,12 +28,6 @@ class Choice
     private $description;
 
     /**
-     * @var int
-     * @ORM\Column(type="integer")
-     */
-    private $ordering;
-
-    /**
      * @var \DateTime
      * @ORM\Column(type="datetime", nullable=true)
      */
@@ -58,6 +52,7 @@ class Choice
     public function __construct() {
         $this->createdAt = Now::now();
         $this->updatedAt = Now::now();
+        $this->description = '';
     }
 
     /**
@@ -86,20 +81,6 @@ class Choice
      */
     public function setDescription(string $description) {
         $this->description = $description;
-    }
-
-    /**
-     * @return int
-     */
-    public function getOrdering(): int {
-        return $this->ordering;
-    }
-
-    /**
-     * @param int $ordering
-     */
-    public function setOrdering(int $ordering) {
-        $this->ordering = $ordering;
     }
 
     /**

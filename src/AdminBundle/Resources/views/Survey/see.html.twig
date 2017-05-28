@@ -70,7 +70,6 @@
         <tr>
             <th>#</th>
             <th>Description</th>
-            <th>Ordre</th>
             <th>Création</th>
         </tr>
         </thead>
@@ -79,7 +78,6 @@
             <tr id="choice-{{ choice.id }}">
                 <td>{{ choice.id }}</td>
                 <td>{{ choice.description|length > 50 ? choice.description|slice(0, 50) ~ '...' : choice.description }}</td>
-                <td>{{ choice.ordering }}</td>
                 <td>{{ choice.createdAt | date_fr }}</td>
             </tr>
         {% endfor %}

@@ -10,14 +10,15 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ChoiceEditDateType extends AbstractType
+class ChoiceDateType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('choix', DateType::class, array(
+            ->add('description', DateType::class, array(
                 'label' => 'Date',
-                'mapped' => 'false'
+                'mapped' => false,
+                'widget'  => 'single_text'
             ))
             ->add('submit', SubmitType::class, array(
                 'label' => 'Enregistrer',
@@ -29,7 +30,7 @@ class ChoiceEditDateType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Participant'
+            'data_class' => 'AppBundle\Entity\Choice'
         ));
     }
 }
