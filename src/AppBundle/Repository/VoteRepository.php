@@ -29,15 +29,4 @@ class VoteRepository extends \Doctrine\ORM\EntityRepository
             ->getQuery()
             ->getSingleScalarResult();
     }
-
-    public function countBySurveyAndChoice(Survey $survey, Choice $choice) {
-        return $this->createQueryBuilder('v')
-            ->select('count(v.id)')
-            ->where('v.survey = :s')
-            ->andWhere('v.choice = :c')
-            ->setParameter('s', $survey)
-            ->setParameter('x', $choice)
-            ->getQuery()
-            ->getSingleScalarResult();
-    }
 }

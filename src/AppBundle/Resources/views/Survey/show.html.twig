@@ -230,7 +230,7 @@
                                         {{ result.choice.description|length > 50 ? result.choice.description|slice(0, 50) ~ '...' : result.choice.description }}
                                     </td>
                                     <td>
-                                        {{ result.value }}%
+                                        {{ result.value|round(2,'floor') }}%
                                     </td>
                                 </tr>
                             {% endfor %}

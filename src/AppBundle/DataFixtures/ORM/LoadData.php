@@ -74,11 +74,11 @@ class LoadData implements FixtureInterface, ContainerAwareInterface, OrderedFixt
         $this->manager->persist($participant3);
         $this->manager->flush($participant3);
 
-        $choice1 = $this->createChoice(new Choice(), $survey, 'Choix 1', 1);
+        $choice1 = $this->createChoice(new Choice(), $survey, 'Choix 1');
         $this->manager->persist($choice1);
         $this->manager->flush($choice1);
 
-        $choice2 = $this->createChoice(new Choice(), $survey, 'Choix 2', 2);
+        $choice2 = $this->createChoice(new Choice(), $survey, 'Choix 2');
         $this->manager->persist($choice2);
         $this->manager->flush($choice2);
 
