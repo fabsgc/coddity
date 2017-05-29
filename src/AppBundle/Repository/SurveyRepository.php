@@ -16,6 +16,7 @@ class SurveyRepository extends EntityRepository
     public function findByUser(User $user) {
         return $this->createQueryBuilder('s')
             ->where('s.user = :user')
+            ->orderBy('s.id', 'desc')
             ->setParameter('user', $user)
             ->getQuery()->getResult();
     }

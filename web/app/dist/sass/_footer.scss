@@ -37,30 +37,4 @@
       text-align: right;
     }
   }
-
-  @media (max-width: $mobile-width) {
-
-  }
-
-
-}
-
-.inline-list {
-  margin-top: 0;
-  margin-bottom: 0;
-  overflow: hidden;
-  padding: 0;
-  li {
-    display: block;
-    float: left;
-    margin-right: 15px;
-    &:after {
-      content: ",";
-    }
-    &:last-child {
-      &:after {
-        content: "";
-      }
-    }
-  }
 }

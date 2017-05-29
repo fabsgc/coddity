@@ -44,26 +44,3 @@ h3.sub-description {
     margin-top: 20px;
   }
 }
-
-#how_it_works {
-  min-height: 500px;
-  background-color: $red;
-  margin-top: 50px;
-  margin-bottom: 50px;
-  border-radius: 10px!important;
-  height: 500px;
-
-  .col-md-4 {
-    margin-top: 25px;
-  }
-
-  img {
-    margin-left: 50px;
-    border-radius: 50%!important;
-    width: 150px!important;
-  }
-
-  span {
-    display: block!important;
-  }
-}

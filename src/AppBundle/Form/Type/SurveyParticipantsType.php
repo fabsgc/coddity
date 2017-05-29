@@ -35,7 +35,7 @@ class SurveyParticipantsType extends AbstractType
                 ),
             ))
             ->add('submit', SubmitType::class, array(
-                'label' => 'Suivant',
+                'label' => 'Enregistrer',
                 'attr' => array('class' => 'btn-primary'),
             ))
         ;

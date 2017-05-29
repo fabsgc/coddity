@@ -14,7 +14,24 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
+                    <div class="alert alert-success alert-dismissable">
+                        Etape I : indiquez les informations essentielles sur votre sondage (nom, description, type et s'il est à réponses multiples).
+                    </div>
                     {{ form_start(form) }}
+                    {{ form_row(form.name) }}
+                    {{ form_row(form.description) }}
+                    {{ form_row(form.type) }}
+
+                    <div class="form-switch">
+                        <label class="switch">
+                            <input type="checkbox" id="survey_general_multiple" name="survey_general[multiple]">
+                            <div class="slider round"></div>
+                        </label>
+                        <label for="survey_general_multiple" class="form-switch-label">Choix Multiple ?</label>
+                    </div>
+
+                    {% do form.multiple.setRendered %}
+
                     {{ form_end(form) }}
                 </div>
             </div>

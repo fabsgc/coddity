@@ -21,6 +21,7 @@
                                 <th>Type</th>
                                 <th>Ouvert</th>
                                 <th>Multiple</th>
+                                <th>Gagnant</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -48,6 +49,13 @@
                                                 Oui
                                             {% else %}
                                                 Non
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if survey.winner != null %}
+                                                {{ survey.winner.description|length > 50 ? survey.winner.description|slice(0, 50) ~ '...' : survey.winner.description }}
+                                            {% else %}
+                                                Pas de gagnant
                                             {% endif %}
                                         </td>
                                         <td>

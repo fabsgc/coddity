@@ -970,20 +970,15 @@ class SurveyController extends Controller
                     if($surveyParticipant instanceof User) {
                         $participant->setUser($surveyParticipant);
                         $participant->setEmail($surveyParticipant->getEmail());
-
-                        $mailer->sendToUser($surveyParticipant, 'Participez à un nouveau sondage !', 'Survey/new_survey', [
-                            'token' => $participant->getToken(),
-                            'survey' => $survey
-                        ]);
                     }
                     else {
                         $participant->setEmail($surveyParticipant);
-
-                        $mailer->sendToEmail($surveyParticipant, 'Participez à un nouveau sondage !', 'Survey/new_survey', [
-                            'token' => $participant->getToken(),
-                            'survey' => $survey
-                        ]);
                     }
+
+                    $mailer->sendToEmail($participant->getEmail(), 'Participez à un nouveau sondage !', 'Survey/new_survey', [
+                        'token' => $participant->getToken(),
+                        'survey' => $survey
+                    ]);
 
                     $em->persist($participant);
                     $em->flush();

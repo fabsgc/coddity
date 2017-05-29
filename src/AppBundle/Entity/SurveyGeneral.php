@@ -40,7 +40,7 @@ class SurveyGeneral
      * @var boolean
      * @ORM\Column(type="boolean")
      */
-    private $multiple = true;
+    private $multiple = false;
 
     /**
      * Subscription constructor.
