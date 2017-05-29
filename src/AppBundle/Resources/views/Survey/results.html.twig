@@ -9,6 +9,13 @@
     <div class="container">
         <div class="container-fluid">
             {% include('AppBundle::flash-message.html.twig') %}
+            {% if survey.user == app.user %}
+                <div class="row">
+                    <a href="{{ path('survey_show', { survey: survey.id }) }}">
+                        <button type="button" class="btn pull-right">Retour</button>
+                    </a>
+                </div>
+            {% endif %}
             <div class="row">
                 <h1 class="text-center">{{ survey.name }} - résultats</h1>
             </div>
