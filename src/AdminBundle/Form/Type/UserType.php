@@ -31,14 +31,6 @@ class UserType extends AbstractType
                 'label' => 'Mot de passe',
                 'required' => false,
             ))
-            ->add('lastname', TextType::class, array(
-                'label' => 'Nom de famille',
-                'required' => false
-            ))
-            ->add('firstname', TextType::class, array(
-                'label' => 'Prénom',
-                'required' => false
-            ))
             ->add('enabled', CheckboxType::class, array(
                 'label' => 'Compte activé ?',
                 'required' => false

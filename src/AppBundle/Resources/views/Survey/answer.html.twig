@@ -10,10 +10,11 @@
         <div class="container-fluid">
             {% include('AppBundle::flash-message.html.twig') %}
             <div class="row">
-                <h1 class="text-center">{{ survey.name }}</h1>
+                <div class="col-md-12">
+                    <h1 class="text-center">{{ survey.name }}</h1>
+                </div>
             </div>
             <div class="row">
-                <div class="col-md-12">
                 <div class="col-md-12">
                     {{ form_errors(form) }}
                     {{ form_start(form) }}

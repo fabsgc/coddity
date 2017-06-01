@@ -33,30 +33,10 @@ class User extends BaseUser
 
     /**
      * @var string
-     * @ORM\Column(length=64, nullable=true)
-     * @Assert\Length(min=3, max=64)
-     */
-    private $firstname;
-
-    /**
-     * @var string
-     * @ORM\Column(length=64, nullable=true)
-     * @Assert\Length(min=3, max=64)
-     */
-    private $lastname;
-
-    /**
-     * @var string
      * @Gedmo\Slug(fields={"username"})
      * @ORM\Column(length=255, unique=true)
      */
     private $slug;
-
-    /**
-     * @var File
-     * @Assert\File(mimeTypes={ "image/jpeg", "image/png" })
-     */
-    private $picture;
 
     /**
      * @var \DateTime
@@ -83,42 +63,6 @@ class User extends BaseUser
     /**
      * @return string
      */
-    public function getFirstname()
-    {
-        return $this->firstname;
-    }
-
-    /**
-     * @param string $firstname
-     * @return User
-     */
-    public function setFirstname($firstname)
-    {
-        $this->firstname = $firstname;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getLastname()
-    {
-        return $this->lastname;
-    }
-
-    /**
-     * @param string $lastname
-     * @return User
-     */
-    public function setLastname($lastname)
-    {
-        $this->lastname = $lastname;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
     public function getSlug()
     {
         return $this->slug;
@@ -132,14 +76,6 @@ class User extends BaseUser
     {
         $this->slug = $slug;
         return $this;
-    }
-
-    /**
-     * @return File
-     */
-    public function getPicture()
-    {
-        return $this->picture;
     }
 
     /**

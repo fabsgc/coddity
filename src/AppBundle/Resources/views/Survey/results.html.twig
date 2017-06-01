@@ -11,14 +11,18 @@
             {% include('AppBundle::flash-message.html.twig') %}
             {% if survey.user == app.user %}
                 <div class="row">
-                    <a href="{{ path('survey_show', { survey: survey.id }) }}">
-                        <button type="button" class="btn pull-right">Retour</button>
-                    </a>
+                    <div class="col-md-12">
+                        <a href="{{ path('survey_show', { survey: survey.id }) }}">
+                            <button type="button" class="btn pull-right">Retour</button>
+                        </a>
+                    </div>
                 </div>
             {% endif %}
             <div class="row">
-                <h1 class="text-center">{{ survey.name }} - résultats</h1>
-                <h3 class="text-center">Vainqueur : {{ survey.winner.description|length > 50 ? survey.winner.description|slice(0, 50) ~ '...' : survey.winner.description }}</h3>
+                <div class="col-md-12">
+                    <h1 class="text-center">{{ survey.name }} - résultats</h1>
+                    <h3 class="text-center">Vainqueur : {{ survey.winner.description|length > 50 ? survey.winner.description|slice(0, 50) ~ '...' : survey.winner.description }}</h3>
+                </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
@@ -27,6 +31,7 @@
                     <div id="canvas-holder" style="width:50%; margin: auto">
                         <canvas id="chart-area" ></canvas>
                     </div>
+                    <br>
                 </div>
             </div>
         </div>

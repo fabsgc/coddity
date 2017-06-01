@@ -21,9 +21,11 @@
         <div class="container-fluid">
             {% include('AppBundle::flash-message.html.twig') %}
             <div class="row">
-                <a href="{{ path('survey_show', { survey: survey.id }) }}">
-                    <button type="button" class="btn pull-right">Retour</button>
-                </a>
+                <div class="col-md-12">
+                    <a href="{{ path('survey_show', { survey: survey.id }) }}">
+                        <button type="button" class="btn pull-right">Retour</button>
+                    </a>
+                </div>
             </div>
             <div class="row">
                 <h1 class="text-center">{{ survey.name }} - nouveau participant</h1>

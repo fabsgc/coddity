@@ -27,6 +27,9 @@ class SurveyType extends AbstractType
             ))
             ->add('description', TextareaType::class, array(
                 'label' => 'Description',
+                'attr' => [
+                    'rows' => 5
+                ]
             ))
             ->add(
                 'type', ChoiceType::class, [
