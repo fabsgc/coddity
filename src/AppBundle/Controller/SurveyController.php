@@ -326,7 +326,7 @@ class SurveyController extends Controller
     }
 
     /**
-     * @Route("/conflit/generate/{survey}", name="survey_conflict_resolve")
+     * @Route("/conflict/generate/{survey}", name="survey_conflict_resolve")
      * @ParamConverter("survey", class="AppBundle:Survey")
      * @Security("has_role('ROLE_USER')")
      * @param Request $request
@@ -334,7 +334,7 @@ class SurveyController extends Controller
      * @return Response
      * @internal param Choice $choice
      */
-    public function conflitResolveAction(Request $request, Survey $survey)
+    public function conflictResolveAction(Request $request, Survey $survey)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -908,8 +908,12 @@ class SurveyController extends Controller
                         array_push($participantsExistTrim, $user);
                     }
                     else {
-                        if(filter_var($participant, FILTER_VALIDATE_EMAIL)) {
+                        if(filter_var($participant, FILTER_VALIDATE_EMAIL) && $participant != $this->getUser()->getEmail()) {
                             array_push($participantsExistTrim, $participant);
+                        }
+
+                        if($participant == $this->getUser()->getEmail() || $participant == $this->getUser()->getUsername()) {
+                            $form->addError(new FormError('Vous ne pouvez pas vous ajouter au sondage car c\'est automatique'));
                         }
                     }
                 }
