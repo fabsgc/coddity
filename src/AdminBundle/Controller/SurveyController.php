@@ -95,7 +95,7 @@ class SurveyController extends Controller
     }
 
     /**
-     * @Route("/delete/{id}", name="admin_survey_delete")
+     * @Route("/delete/{survey}", name="admin_survey_delete")
      * @ParamConverter("survey", class="AppBundle:Survey")
      * @Method({"DELETE"})
      * @param Request $request
