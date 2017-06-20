@@ -62,7 +62,7 @@
                     <a title="Editer" href="{{ path('admin_survey_edit', { 'survey': survey.id }) }}">
                         <button type="button" class="btn btn-info btn-circle"><i class="fa fa-pencil"></i></button>
                     </a>
-                    <a href="{{ path('admin_survey_delete', { 'id': survey.id }) }}">
+                    <a href="{{ path('admin_survey_delete', { 'survey': survey.id }) }}">
                         <button type="button" class="btn btn-danger btn-circle"><i class="fa fa-trash"></i></button>
                     </a>
                 </td>
