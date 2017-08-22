@@ -14,3 +14,4 @@
 /data/
 /web/app/dist/.sass-cache
 /composer.lock
+/app/config/parameters.yml
