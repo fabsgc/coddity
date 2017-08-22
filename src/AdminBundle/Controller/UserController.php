@@ -66,7 +66,7 @@ class UserController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
-    public function registerUser(Request $request)
+    public function registerUserAction(Request $request)
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);

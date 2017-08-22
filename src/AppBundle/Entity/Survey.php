@@ -232,4 +232,3 @@ class Survey
         $this->user = $user;
     }
 }
-

@@ -125,4 +125,3 @@ class Choice
         $this->survey = $survey;
     }
 }
-

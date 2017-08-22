@@ -42,4 +42,3 @@ class SurveyChoices
         $this->choices = $choices;
     }
 }
-

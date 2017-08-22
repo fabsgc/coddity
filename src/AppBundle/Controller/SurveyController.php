@@ -102,7 +102,7 @@ class SurveyController extends Controller
      * @param String $token
      * @return Response
      */
-    public function showResults(Request $request, Survey $survey, String $token)
+    public function showResultsAction(Request $request, Survey $survey, String $token)
     {
         $em = $this->getDoctrine()->getManager();
         $participant = $em->getRepository('AppBundle:Participant')->findBySurveyAndToken($survey, $token);
@@ -252,8 +252,9 @@ class SurveyController extends Controller
             $result->setValue($choicesScore / $votesCount * 100);
             $result->setChoice($choice);
             $em->persist($result);
-            $em->flush();
         }
+
+        $em->flush();
 
         //If there are several choices with same score, we must resolve a conflit
         if(count($choicesWithHighestScore) > 1) {
@@ -372,12 +373,13 @@ class SurveyController extends Controller
                 $newChoice->setDescription($choice->getDescription());
                 $newChoice->setSurvey($newSurvey);
                 $em->persist($newChoice);
-                $em->flush();
             }
             else {
                 break;
             }
         }
+
+        $em->flush();
 
         $tokenUser = '';
         $participants = $em->getRepository('AppBundle:Participant')->findBySurvey($survey);
@@ -405,8 +407,9 @@ class SurveyController extends Controller
             }
 
             $em->persist($newParticipant);
-            $em->flush();
         }
+
+        $em->flush();
 
         $this->addFlash('success', 'Un nouveau sondage vient d\'être créé à partir des choix restants. Vous pouvez dès maintenant y répondre');
 
@@ -690,8 +693,9 @@ class SurveyController extends Controller
                                         $vote->setParticipant($participant);
                                         $vote->setChoice($choice);
                                         $em->persist($vote);
-                                        $em->flush();
                                     }
+
+                                    $em->flush();
 
                                     $this->addFlash('success', 'Merci d\'avoir pris le temps de répondre à ce sondage !');
                                     return $this->redirectToRoute('home');
@@ -951,8 +955,9 @@ class SurveyController extends Controller
                     $choice->setDescription($surveyChoice);
                     $choice->setSurvey($survey);
                     $em->persist($choice);
-                    $em->flush();
                 }
+
+                $em->flush();
 
                 //We add the creator to the survey
                 $participantUser = new Participant();
@@ -985,8 +990,9 @@ class SurveyController extends Controller
                     ]);
 
                     $em->persist($participant);
-                    $em->flush();
                 }
+
+                $em->flush();
 
                 $session->remove('surveyGeneral');
 

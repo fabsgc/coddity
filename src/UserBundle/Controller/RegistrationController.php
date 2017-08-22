@@ -37,7 +37,7 @@ class RegistrationController extends Controller {
 
             $form->handleRequest($request);
 
-            if ($form->isSubmitted() and $form->isValid()) {
+            if ($form->isSubmitted() && $form->isValid()) {
                 $user->setRegistrationDate(new \DateTime('now'));
 
                 $event = new GetResponseUserEvent($user, $request);
@@ -47,8 +47,6 @@ class RegistrationController extends Controller {
                 $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
 
                 $userManager->updateUser($user);
-
-                var_dump($user);
 
                 $this->addFlash('success', 'Votre inscription a bien été prise en compte. Vous allez recevoir un mail de confirmation contenant un lien d\'activation.');
 
@@ -76,7 +74,6 @@ class RegistrationController extends Controller {
             $user = $userManager->findUserByConfirmationToken($token);
 
             if (null === $user) {
-                //throw new NotFoundHttpException(sprintf('The user with confirmation token "%s" does not exist', $token));
                 $this->addFlash('danger', 'Ce lien semble invalide. Veuillez vérifier que vous avez entrez une adresse correcte.');
                 return $this->redirectToRoute('home');
             }

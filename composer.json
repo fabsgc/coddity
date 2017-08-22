@@ -1,6 +1,7 @@
 {
     "name": "fabsgc/coddity",
     "license": "proprietary",
+    "description": "Survey project",
     "type": "project",
     "autoload": {
         "psr-4": {

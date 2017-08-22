@@ -42,4 +42,3 @@ class SurveyParticipants
         $this->participants = $participants;
     }
 }
-

@@ -146,4 +146,3 @@ class Vote
         $this->survey = $survey;
     }
 }
-

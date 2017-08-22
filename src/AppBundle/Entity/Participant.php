@@ -188,4 +188,3 @@ class Participant
         $this->user = $user;
     }
 }
-

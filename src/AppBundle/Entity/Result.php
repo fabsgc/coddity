@@ -145,4 +145,3 @@ class Result
         $this->survey = $survey;
     }
 }
-
